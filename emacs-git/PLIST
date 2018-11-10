@@ -2718,6 +2718,8 @@ share/emacs/${PKGVERSION}/lisp/mpc.el.gz
 share/emacs/${PKGVERSION}/lisp/mpc.elc
 share/emacs/${PKGVERSION}/lisp/msb.el.gz
 share/emacs/${PKGVERSION}/lisp/msb.elc
+share/emacs/${PKGVERSION}/lisp/multifile.elc
+share/emacs/${PKGVERSION}/lisp/multifile.el.gz
 share/emacs/${PKGVERSION}/lisp/mwheel.el.gz
 share/emacs/${PKGVERSION}/lisp/mwheel.elc
 share/emacs/${PKGVERSION}/lisp/net/ange-ftp.el.gz
@@ -3979,3 +3981,4 @@ share/icons/hicolor/scalable/apps/emacs.svg
 share/icons/hicolor/scalable/mimetypes/emacs-document.svg
 share/icons/hicolor/scalable/mimetypes/emacs-document23.svg
 share/metainfo/emacs.appdata.xml
+include/emacs-module.h
