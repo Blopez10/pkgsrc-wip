@@ -1,11 +1,11 @@
 # $NetBSD$
 
 GITHUB_PROJECT=	dosbox-x
-PKGNAME=	dosbox-x-0.82.9
+PKGNAME=	dosbox-x-0.82.17
 DISTNAME=	${GITHUB_TAG}
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_GITHUB:=joncampbell123/}
-GITHUB_TAG=	dosbox-x-windows-v0.82.9
+GITHUB_TAG=	dosbox-x-v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://dosbox-x.com/

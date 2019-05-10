@@ -1,11 +1,11 @@
 # $NetBSD$
 
-DISTNAME=	getdns-1.1.0
+DISTNAME=	getdns-1.5.0
 CATEGORIES=	net
-MASTER_SITES=	https://getdnsapi.net/releases/getdns-1-1-0/
+MASTER_SITES=	https://getdnsapi.net/releases/getdns-1-5-0/
 
 MAINTAINER=	root@zta.lk
-HOMEPAGE=	https://getdnsapi.net/releases/getdns-1-1-0/
+HOMEPAGE=	https://getdnsapi.net/
 COMMENT=	Modern asynchronous DNS API
 LICENSE=	modified-bsd
 
@@ -19,4 +19,6 @@ PKGCONFIG_OVERRIDE+=	getdns_ext_event.pc.in
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../net/unbound/buildlink3.mk"
+.include "../../devel/protobuf-c/buildlink3.mk"
+.include "../../net/fstrm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

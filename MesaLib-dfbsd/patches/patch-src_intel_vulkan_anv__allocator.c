@@ -1,4 +1,4 @@
-$NetBSD$
+$NetBSD: patch-src_intel_vulkan_anv__allocator.c,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 * Partially implement memfd_create() via mkostemp()
 * Ignore MAP_POPULATE if unsupported

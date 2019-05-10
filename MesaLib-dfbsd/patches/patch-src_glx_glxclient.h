@@ -1,4 +1,4 @@
-$NetBSD: patch-src_glx_glxclient.h,v 1.1 2015/09/11 16:27:30 tnn Exp $
+$NetBSD: patch-src_glx_glxclient.h,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 NetBSD only supports zero-initialized initial-exec tls variables in conjuction
 with dlopen(3) at the moment.

@@ -1,4 +1,4 @@
-$NetBSD: patch-src_mapi_entry__x86__tls.h,v 1.2 2015/09/26 08:45:02 tnn Exp $
+$NetBSD: patch-src_mapi_entry__x86__tls.h,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 NetBSD only supports zero-initialized initial-exec tls variables in conjuction
 with dlopen(3) at the moment.

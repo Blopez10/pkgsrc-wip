@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.154 2015/10/10 01:57:53 ryoon Exp $
 
 DISTNAME=	evolution-data-server-3.18.4
+PKGREVISION=	1
 CATEGORIES=	mail gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-data-server/3.18/}
 EXTRACT_SUFX=	.tar.xz
@@ -71,7 +72,7 @@ BUILDLINK_TRANSFORM+=	rm:-ldl
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../lang/vala/buildlink3.mk"
 .include "../../security/libsecret/buildlink3.mk"
-.include "../../wip/gcr/buildlink3.mk"
+.include "../../security/gcr/buildlink3.mk"
 .include "../../net/gnome-online-accounts/buildlink3.mk"
 .include "../../devel/gperf/buildlink3.mk"
 .include "../../security/libgnome-keyring/buildlink3.mk"

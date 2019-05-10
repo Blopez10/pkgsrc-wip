@@ -1,12 +1,9 @@
 # $NetBSD: Makefile,v 1.4 2015/09/13 20:07:57 yhardy Exp $
 
-GITHUB_PROJECT=	bstone
-GITHUB_TAG=	v${PKGVERSION_NOREV}
-DISTNAME=	${GITHUB_TAG}
-PKGNAME=	${GITHUB_PROJECT}-1.1.9
+DISTNAME=	bstone-1.1.12
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=bibendovsky/}
-DIST_SUBDIR=	${GITHUB_PROJECT}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://bibendovsky.github.io/bstone/
@@ -15,7 +12,7 @@ LICENSE=	gnu-gpl-v3
 
 WRKSRC=		${WRKDIR}/bstone-${PKGVERSION_NOREV}/src
 USE_CMAKE=	yes
-USE_LANGUAGES=	c++
+USE_LANGUAGES=	c++14
 USE_TOOLS+=	pkg-config
 
 INSTALLATION_DIRS+=	bin share/doc/${PKGNAME}

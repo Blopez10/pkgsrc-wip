@@ -1,4 +1,4 @@
-$NetBSD: patch-src_mesa_drivers_dri_i915_intel__screen.c,v 1.2 2015/06/07 15:48:12 tnn Exp $
+$NetBSD: patch-src_mesa_drivers_dri_i915_intel__screen.c,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 Move sys/sysctl.h include because on NetBSD, sysctl.h includes sys/param.h,
 and sys/param.h defines a one argument ALIGN.  Allows mesa to redefine

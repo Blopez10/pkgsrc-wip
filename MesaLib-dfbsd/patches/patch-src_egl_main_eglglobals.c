@@ -1,4 +1,4 @@
-$NetBSD: patch-src_egl_main_eglglobals.c,v 1.1 2016/01/27 07:39:54 wiz Exp $
+$NetBSD: patch-src_egl_main_eglglobals.c,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 atexit() is not a good idea in shared libraries.
 

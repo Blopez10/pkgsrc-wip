@@ -1,9 +1,9 @@
 $NetBSD$
 
-SHA1 (dosbox-x-windows-v0.82.9.tar.gz) = b0ffb2a531b34f3dfd787c3112a3b9f0d28fb298
-RMD160 (dosbox-x-windows-v0.82.9.tar.gz) = 6fa340bf853575b33761faf850b8bf4908ccd595
-SHA512 (dosbox-x-windows-v0.82.9.tar.gz) = 0dc93adac37bd8bf404c6826ae54c1aefd5c50b2c26b54f9862c8c086fec0181c2b38056e81273070af8e98eab49569f2ca51888a48a6299a25942955da07975
-Size (dosbox-x-windows-v0.82.9.tar.gz) = 28495934 bytes
-SHA1 (patch-configure.ac) = 5c800c35b56e33255559162f0548101dc2da55c5
-SHA1 (patch-include_byteorder.h) = 54268aef66ed25f8209876a28fb980358b787664
-SHA1 (patch-include_dos__inc.h) = a2b8589b7dcb4430267af7948b0d31d3c4aca2c9
+SHA1 (dosbox-x-v0.82.17.tar.gz) = d24e45e20f5ef9a62debfc67936eecd6bd1d4671
+RMD160 (dosbox-x-v0.82.17.tar.gz) = 7ba64a200e769e7a31796d8d489a4f4eea3369ed
+SHA512 (dosbox-x-v0.82.17.tar.gz) = 721b6421d2ad8ed7197e6a7edf905f47e42069706d9ab1c85c46ab6beef971e73e0b25c02330e0df716ec52078d535fd04bf9c3402c8ea0740c67a4f9b2317fa
+Size (dosbox-x-v0.82.17.tar.gz) = 35987890 bytes
+SHA1 (patch-configure.ac) = 9f4501c638557deed0757d08e4db5298a2622bfc
+SHA1 (patch-include_byteorder.h) = 86eccfbc2318ddc8d71a6de8723947a48d98a126
+SHA1 (patch-include_dos__inc.h) = 26ba2b11dcfa923085f3745b0f8aca542f5dc692

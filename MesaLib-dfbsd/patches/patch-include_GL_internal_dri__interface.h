@@ -1,4 +1,4 @@
-$NetBSD$
+$NetBSD: patch-include_GL_internal_dri__interface.h,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 From FreeBSD ports graphics/mesa-dri 17.2.4.
 

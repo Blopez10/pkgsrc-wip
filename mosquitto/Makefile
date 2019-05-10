@@ -1,6 +1,6 @@
 # $NetBSD$
 
-VERSION=	1.5.3
+VERSION=	1.6.1
 DISTNAME=	mosquitto-${VERSION}
 CATEGORIES=	net
 MASTER_SITES=	https://mosquitto.org/files/source/
@@ -14,33 +14,24 @@ LICENSE=	epl-v1.0
 USE_LANGUAGES+=	c c++
 # Upstream documents that "unix" should use make, but Mac cmake.
 # After asking and receiving no guidance, choose to always use cmake.
+# https://github.com/eclipse/mosquitto/issues/1041
 USE_CMAKE=	yes
 USE_TOOLS+=	gmake
 
-# config.mk is in theory used by only the non-cmake build.  Remove it,
-# to force a failure if it somehow becomes used.
-post-extract:
-	${RM} ${WRKSRC}/config.mk
+CMAKE_ARGS+=	-DCMAKE_INSTALL_SYSCONFDIR=${PREFIX}/share/examples
 
+# \todo Resolve what is an example vs. what might be used.
 CONF_FILES=	${PREFIX}/share/examples/mosquitto/pskfile.example \
 		${PREFIX}/share/examples/mosquitto/pwfile.example \
 		${PREFIX}/share/examples/mosquitto/mosquitto.conf \
 		${PREFIX}/share/examples/mosquitto/aclfile.example
 
-SUBST_CLASSES+=			ldconfig
-
-SUBST_STAGE.ldconfig=		post-extract
-SUBST_MESSAGE.ldconfig=		Removing non-portable ldconfig invocations
-SUBST_FILES.ldconfig=		lib/CMakeLists.txt \
-				lib/cpp/CMakeLists.txt \
-				src/CMakeLists.txt
-SUBST_SED.ldconfig=		-E -e '/EXEC_PROGRAM\(\/sbin\/ldconfig/d'
-
-post-install:
-	mkdir ${DESTDIR}${PREFIX}/share/examples/mosquitto
-	${INSTALL_DATA}	${WRKSRC}/pskfile.example ${WRKSRC}/pwfile.example ${WRKSRC}/mosquitto.conf ${WRKSRC}/aclfile.example ${DESTDIR}${PREFIX}/share/examples/mosquitto
+# Fails; see https://github.com/eclipse/mosquitto/issues/1242
+TEST_TARGET=	test
+.include "../../devel/cunit/buildlink3.mk"
 
 .include "../../devel/libuuid/buildlink3.mk"
+.include "../../devel/uthash/buildlink3.mk"
 # ?needed
 .include "../../net/libcares/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,65 +1,83 @@
-# $NetBSD: options.mk,v 1.5 2012/06/12 15:46:34 thomasklausner Exp $
-#
+# $NetBSD$
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.gnunet
-PKG_OPTIONS_REQUIRED_GROUPS=	security
-PKG_OPTIONS_GROUP.security=	libgcrypt ssl
-PKG_SUPPORTED_OPTIONS=		bdb gdbm inet6 tdb
-PKG_SUGGESTED_OPTIONS=		inet6
-
-# some sane defaults to use base OS functionality where appropriate
-.if !empty(OPSYS:M*BSD)
-PKG_SUGGESTED_OPTIONS=	ssl
-.else
-PKG_SUGGESTED_OPTIONS=	libgcrypt
-.endif
+PKG_SUPPORTED_OPTIONS=		doc mdoc idn mysql pgsql tests experimental bluez
+PKG_SUGGESTED_OPTIONS=		doc
+PLIST_VARS+=			doc
+PLIST_VARS+=			experimental
+# openssl is currently required by:
+# src/transport/gnunet-transport-certificate-creation
+# src/gns/gnunet-gns-proxy-setup-ca
 
 .include "../../mk/bsd.options.mk"
 
-# IPv6 doesn't compile in this release
-#BUILD_DEFS+=		USE_INET6
-#.if !empty(PKG_OPTIONS:inet6)
-#CONFIGURE_ARGS+=	--enable-ipv6
-#GNUNET_PLIST_ADD+=	lib/libgnunettransport_tcp6.la
-#GNUNET_PLIST_ADD+=	lib/libgnunettransport_udp6.la
-#.else
-CONFIGURE_ARGS+=	--disable-ipv6
-#.endif
+# Parts of the testsuite require python3.7
+.if !empty(PKG_OPTIONS:Mtests)
+.include "../../lang/python/tool.mk"
+PYTHON_VERSIONS_INCOMPATIBLE=	27
+PYTHON_FOR_BUILD_ONLY=	yes
+.endif
 
-.if !empty(PKG_OPTIONS:Mbdb)
-BDB_ACCEPTED=		db4 db3 db2
-.include "../../mk/bdb.buildlink3.mk"
-CONFIGURE_ARGS+=	--with-bdb=${BDBBASE}
-GNUNET_PLIST_ADD+=	lib/libgnunetafs_database_bdb.la
+# build the doc output. XXX: See README.
+.if !empty(PKG_OPTIONS:Mdoc)
+USE_TOOLS+=		makeinfo
+CONFIGURE_ARGS+=	--enable-documentation
+PLIST.doc=		yes
 .else
-CONFIGURE_ARGS+=	--without-bdb
+CONFIGURE_ARGS+=	--disable-documentation
 .endif
 
-.if !empty(PKG_OPTIONS:Mgdbm)
-.include "../../databases/gdbm/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-gdbm=${BUILDLINK_PREFIX.gdbm}
-GNUNET_PLIST_ADD+=	lib/libgnunetafs_database_gdbm.la
+# build the mdoc output. XXX: See README.
+.if !empty(PKG_OPTIONS:Mmdoc)
+BUILD_DEPENDS+=		texi2mdoc-[0-9]*:../../textproc/texi2mdoc
+CONFIGURE_ARGS+=	--enable-texi2mdoc-generation
 .else
-CONFIGURE_ARGS+=	--without-gdbm
+CONFIGURE_ARGS+=	--disable-texi2mdoc-generation
 .endif
 
-.if !empty(PKG_OPTIONS:Mtdb)
-.include "../../databases/tdb/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-tdb=${BDBBASE}
-GNUNET_PLIST_ADD+=	lib/libgnunetafs_database_tdb.la
+# idn is mandatory but idn or idn2 can be used with a preference
+# for idn2.
+.if !empty(PKG_OPTIONS:Midn)
+.include "../../devel/libidn2/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-libidn2=${BUILDLINK_PREFIX.libidn2}
 .else
-CONFIGURE_ARGS+=	--without-tdb
+.include "../../devel/libidn/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-libidn=${BUILDLINK_PREFIX.libidn}
 .endif
 
-# libgcrypt is used in preference to openssl, per gnunet configure.ac
-.if !empty(PKG_OPTIONS:Mlibgcrypt)
-.include "../../security/libgcrypt/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-libgcrypt-prefix=${BUILDLINK_PREFIX.libgcrypt}
-CONFIGURE_ARGS+=	--without-crypto
+# database support - they don't exclude other databases,
+# you can have mysql, pgsql, and the default all built in.
+.if !empty(PKG_OPTIONS:Mmysql)
+.include "../../mk/mysql.buildlink3.mk"
 .endif
 
-.if !empty(PKG_OPTIONS:Mssl)
-.include "../../security/openssl/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-crypto=${BUILDLINK_PREFIX.libgcrypt}
-CONFIGURE_ENV+=		LIBGCRYPT_CONFIG=/nonexistent
+.if !empty(PKG_OPTIONS:Mpgsql)
+.include "../../mk/pgsql.buildlink3.mk"
+.endif
+
+# Experimental
+.if !empty(PKG_OPTIONS:Mexperimental)
+.include "../../audio/libopus/buildlink3.mk"
+.include "../../audio/pulseaudio/buildlink3.mk"
+.include "../../math/glpk/buildlink3.mk"
+.include "../../multimedia/libogg/buildlink3.mk"
+.include "../../multimedia/gstreamer1/buildlink3.mk"
+.include "../../multimedia/gst-plugins1-base/buildlink3.mk"
+CONFIGURE_ARGS+=	--enable-experimental
+PLIST.experimental=	yes
+.endif
+
+# FIXME: It would be good to provide a build of gnunet against
+# 'gnutls build against libdane/unbound' iff unbound is selected,
+# causing consequentially a build of gnutls with this setting.
+# Since gnunet does build against either of these and gnutls
+# without libdane is more common in pkgsrc, this should be
+# an option. The conditional below doesn't work.
+# .if !empty(PKG_OPTIONS:Munbound) && empty(PKG_BUILD_OPTIONS.gnutls:Munbound)
+# PKG_FAIL_REASON+=	"Requires the unbound option enabled in gnutls"
+# .endif
+
+.if ${OPSYS} == "Linux" && !empty(PKG_OPTIONS:Mbluez)
+# Do we need more for bluez?
+.include "../../wip/bluez-libs/buildlink3.mk"
 .endif

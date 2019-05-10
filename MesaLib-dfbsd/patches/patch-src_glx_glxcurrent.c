@@ -1,4 +1,4 @@
-$NetBSD: patch-src_glx_glxcurrent.c,v 1.2 2015/09/26 08:45:02 tnn Exp $
+$NetBSD: patch-src_glx_glxcurrent.c,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 Interim fix for toolchain/50277.
 

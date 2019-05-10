@@ -2,7 +2,7 @@
 
 # XXX: When updating changelog is available in
 # XXX: ${WRKSRC}/docs/content/changelog.md
-DISTNAME=	rclone-1.44
+DISTNAME=	rclone-1.47.0
 PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ncw/}

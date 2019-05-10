@@ -1,4 +1,4 @@
-$NetBSD: patch-src_mesa_drivers_dri_swrast_swrast.c,v 1.2 2015/06/07 15:48:12 tnn Exp $
+$NetBSD: patch-src_mesa_drivers_dri_swrast_swrast.c,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 Fix build on older NetBSD w/o _SC_PHYS_PAGES.
 

@@ -1,7 +1,7 @@
 # $NetBSD$
 
-DISTNAME=	libcxxabi-4.0.0.src
-PKGNAME=	libc++-abi-4.0.0
+DISTNAME=	libcxxabi-7.0.1.src
+PKGNAME=	libc++-abi-7.0.1
 CATEGORIES=	lang devel
 MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
@@ -28,5 +28,5 @@ CMAKE_ARGS.Darwin+=	-DCMAKE_LIBTOOL=/usr/bin/libtool
 post-extract:
 	${MKDIR} ${WRKDIR}/build
 
-.include "../../lang/libc++/buildlink3.mk"
+.include "../../wip/libc++/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

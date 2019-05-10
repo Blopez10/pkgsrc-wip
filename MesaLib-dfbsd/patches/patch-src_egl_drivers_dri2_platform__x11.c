@@ -1,4 +1,4 @@
-$NetBSD: patch-src_egl_drivers_dri2_platform__x11.c,v 1.2 2016/05/18 12:55:28 wiz Exp $
+$NetBSD: patch-src_egl_drivers_dri2_platform__x11.c,v 1.1 2018/10/07 23:49:31 ryoon Exp $
 
 Provide compat strndup for older Darwin.
 

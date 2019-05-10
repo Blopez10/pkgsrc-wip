@@ -10,7 +10,7 @@ HOMEPAGE=	http://live.gnome.org/Empathy
 COMMENT=	Gnome instant messenger client
 LICENSE=	gnu-gpl-v2
 
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37
+PYTHON_VERSIONS_INCOMPATIBLE=	36 37
 
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gawk gmake gsed intltool msgfmt pkg-config
@@ -43,7 +43,7 @@ XSLTPROC_PATH=		${LOCALBASE}/share/doc/dbus
 .include "../../chat/telepathy-farstream/buildlink3.mk"
 .include "../../wip/telepathy-logger/buildlink3.mk"
 .include "../../wip/libfolks/buildlink3.mk"
-.include "../../wip/gcr/buildlink3.mk"
+.include "../../security/gcr/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=		glib2>=2.37.6
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/glib2/schemas.mk"

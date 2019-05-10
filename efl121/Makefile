@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 0.3 2018/09/07 20:03:10 andyb Exp $
 
 DISTNAME=	efl-1.21.0
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	https://download.enlightenment.org/rel/libs/efl/
 EXTRACT_SUFX=	.tar.xz
@@ -42,6 +43,7 @@ USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
 USE_TOOLS=		gmake pkg-config automake autoconf
+LDFLAGS+=		-lcompat
 ICON_THEMES=		yes
 
 .include "../../converters/libiconv/buildlink3.mk"
@@ -51,7 +53,6 @@ ICON_THEMES=		yes
 .include "../../x11/libXcursor/buildlink3.mk"
 .include "../../x11/libXdamage/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"
-.include "../../x11/libXp/buildlink3.mk"
 .include "../../x11/libXrandr/buildlink3.mk"
 .include "../../x11/libXrender/buildlink3.mk"
 .include "../../x11/libXtst/buildlink3.mk"
