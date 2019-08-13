@@ -12,9 +12,9 @@ Commit: 9b331e462e5021d994859756d46cd2519d9c9c6e
 
 https://cgit.freedesktop.org/mesa/mesa/commit/?id=9b331e462e5021d994859756d46cd2519d9c9c6e
 
---- src/gallium/drivers/radeonsi/si_pipe.c.orig	2019-02-02 23:08:03.000000000 +0000
+--- src/gallium/drivers/radeonsi/si_pipe.c.orig	2019-03-18 15:52:18.000000000 +0000
 +++ src/gallium/drivers/radeonsi/si_pipe.c
-@@ -197,10 +197,12 @@ static void si_destroy_context(struct pi
+@@ -195,10 +195,12 @@ static void si_destroy_context(struct pi
  		sctx->b.delete_vs_state(&sctx->b, sctx->vs_blit_color_layered);
  	if (sctx->vs_blit_texcoord)
  		sctx->b.delete_vs_state(&sctx->b, sctx->vs_blit_texcoord);
@@ -24,10 +24,10 @@ https://cgit.freedesktop.org/mesa/mesa/commit/?id=9b331e462e5021d994859756d46cd2
  	if (sctx->cs_copy_buffer)
  		sctx->b.delete_compute_state(&sctx->b, sctx->cs_copy_buffer);
 +#endif
- 	if (sctx->cs_copy_image)
- 		sctx->b.delete_compute_state(&sctx->b, sctx->cs_copy_image);
- 	if (sctx->cs_copy_image_1d_array)
-@@ -373,7 +375,11 @@ static void si_set_context_param(struct 
+ 
+ 	if (sctx->blitter)
+ 		util_blitter_destroy(sctx->blitter);
+@@ -367,7 +369,11 @@ static void si_set_context_param(struct 
  }
  
  static struct pipe_context *si_create_context(struct pipe_screen *screen,
@@ -39,7 +39,7 @@ https://cgit.freedesktop.org/mesa/mesa/commit/?id=9b331e462e5021d994859756d46cd2
  {
  	struct si_context *sctx = CALLOC_STRUCT(si_context);
  	struct si_screen* sscreen = (struct si_screen *)screen;
-@@ -388,7 +394,11 @@ static struct pipe_context *si_create_co
+@@ -381,7 +387,11 @@ static struct pipe_context *si_create_co
  		sscreen->record_llvm_ir = true; /* racy but not critical */
  
  	sctx->b.screen = screen; /* this must be set first */
@@ -51,7 +51,7 @@ https://cgit.freedesktop.org/mesa/mesa/commit/?id=9b331e462e5021d994859756d46cd2
  	sctx->b.destroy = si_destroy_context;
  	sctx->b.emit_string_marker = si_emit_string_marker;
  	sctx->b.set_debug_callback = si_set_debug_callback;
-@@ -622,6 +632,7 @@ fail:
+@@ -623,6 +633,7 @@ fail:
  	return NULL;
  }
  
@@ -59,7 +59,7 @@ https://cgit.freedesktop.org/mesa/mesa/commit/?id=9b331e462e5021d994859756d46cd2
  static struct pipe_context *si_pipe_create_context(struct pipe_screen *screen,
  						   void *priv, unsigned flags)
  {
-@@ -652,6 +663,7 @@ static struct pipe_context *si_pipe_crea
+@@ -653,6 +664,7 @@ static struct pipe_context *si_pipe_crea
  				       sscreen->info.drm_major >= 3 ? si_create_fence : NULL,
  				       &((struct si_context*)ctx)->tc);
  }
@@ -79,7 +79,7 @@ https://cgit.freedesktop.org/mesa/mesa/commit/?id=9b331e462e5021d994859756d46cd2
  	sscreen->b.destroy = si_destroy_screen;
  
  	si_init_screen_get_functions(sscreen);
-@@ -1116,7 +1132,11 @@ struct pipe_screen *radeonsi_screen_crea
+@@ -1111,7 +1127,11 @@ struct pipe_screen *radeonsi_screen_crea
  		si_init_compiler(sscreen, &sscreen->compiler_lowp[i]);
  
  	/* Create the auxiliary context. This must be done last. */

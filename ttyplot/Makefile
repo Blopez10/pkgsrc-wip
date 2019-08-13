@@ -4,10 +4,18 @@ DISTNAME=	ttyplot-1.4
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=tenox7/}
 
-MAINTAINER=	fred@statdns.com
+MAINTAINER=	fcambus@NetBSD.org
 HOMEPAGE=	https://github.com/tenox7/ttyplot/
 COMMENT=	Realtime plotting utility for terminals
 LICENSE=	unlicense
+
+# Adjust Makefile
+SUBST_CLASSES+=		makefile
+SUBST_STAGE.makefile=	pre-configure
+SUBST_MESSAGE.makefile=	Fixing Makefile
+SUBST_FILES.makefile=	Makefile
+SUBST_SED.makefile+=	-e '/^CFLAGS/ s,-O3,,'
+SUBST_SED.makefile+=	-e 's,^CFLAGS *= ,CFLAGS += ,'
 
 DOCDIR=		share/doc/ttyplot
 

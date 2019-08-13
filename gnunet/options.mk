@@ -2,8 +2,8 @@
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.gnunet
 PKG_SUPPORTED_OPTIONS=		doc mdoc idn mysql pgsql tests experimental bluez
-PKG_SUGGESTED_OPTIONS=		doc
-PLIST_VARS+=			doc
+PKG_SUGGESTED_OPTIONS=		mdoc
+PLIST_VARS+=			doc mdoc
 PLIST_VARS+=			experimental
 # openssl is currently required by:
 # src/transport/gnunet-transport-certificate-creation
@@ -11,26 +11,26 @@ PLIST_VARS+=			experimental
 
 .include "../../mk/bsd.options.mk"
 
-# Parts of the testsuite require python3.7
 .if !empty(PKG_OPTIONS:Mtests)
 .include "../../lang/python/tool.mk"
-PYTHON_VERSIONS_INCOMPATIBLE=	27
 PYTHON_FOR_BUILD_ONLY=	yes
 .endif
 
 # build the doc output. XXX: See README.
 .if !empty(PKG_OPTIONS:Mdoc)
 USE_TOOLS+=		makeinfo
+INFO_FILES=   yes
 CONFIGURE_ARGS+=	--enable-documentation
 PLIST.doc=		yes
 .else
 CONFIGURE_ARGS+=	--disable-documentation
 .endif
 
-# build the mdoc output. XXX: See README.
+# Build the mdoc output.
 .if !empty(PKG_OPTIONS:Mmdoc)
 BUILD_DEPENDS+=		texi2mdoc-[0-9]*:../../textproc/texi2mdoc
 CONFIGURE_ARGS+=	--enable-texi2mdoc-generation
+PLIST.mdoc=		yes
 .else
 CONFIGURE_ARGS+=	--disable-texi2mdoc-generation
 .endif

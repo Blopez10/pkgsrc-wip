@@ -126,7 +126,7 @@ RULE_SUBDIR=		${RULESDIR:S,^${PREFIX}/,,}
 
 CONF_FILES+=		${EGDIR}/local.cf  ${PKG_SYSCONFDIR}/local.cf	\
 			${RULESDIR}/user_prefs.template			\
-		 	${PKG_SYSCONFDIR}/user_prefs.template
+			${PKG_SYSCONFDIR}/user_prefs.template
 SUPPORT_FILES_PERMS+=	${EGDIR}/netbsd_lists.cf			\
 			${PKG_SYSCONFDIR}/netbsd_lists.cf ${SHAREOWN}	\
 			${SHAREGRP} ${SHAREMODE}
@@ -141,9 +141,7 @@ SUBST_SED.sa1=		-e s!@SA_CONTACT_ADDRESS@!${SPAMASSASSIN_CONTACT_ADDRESS}!
 
 SUBST_STAGE.sa2=	post-patch
 SUBST_FILES.sa2=	README spamd/spamd.raw
-SUBST_SED.sa2=		-e s!@PREFIX@!${PREFIX}!g			\
-			-e s!@PKG_SYSCONFDIR@!${PKG_SYSCONFDIR}!g	\
-			-e s!@SA_SSLCERTS@!${SA_SSLCERTS}!g
+SUBST_VARS.sa2=		PREFIX PKG_SYSCONFDIR SA_SSLCERTS
 
 SUBST_STAGE.sa3=	post-patch
 SUBST_FILES.sa3=	INSTALL USAGE lib/Mail/SpamAssassin/Conf.pm	\

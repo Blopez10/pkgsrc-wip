@@ -9,7 +9,7 @@ From FreeBSD ports / DragonFly dports
 
 https://reviews.freebsd.org/D17872
 
---- src/util/u_thread.h.orig	2018-12-11 21:13:57.000000000 +0000
+--- src/util/u_thread.h.orig	2019-04-05 10:53:23.000000000 +0000
 +++ src/util/u_thread.h
 @@ -34,6 +34,13 @@
  
@@ -25,20 +25,22 @@ https://reviews.freebsd.org/D17872
  #endif
  
  static inline thrd_t u_thread_create(int (*routine)(void *), void *param)
-@@ -64,6 +71,8 @@ static inline void u_thread_setname( con
+@@ -64,6 +71,10 @@ static inline void u_thread_setname( con
        (__GLIBC__ >= 3 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 12)) && \
        defined(__linux__)
     pthread_setname_np(pthread_self(), name);
 +#  elif defined(__DragonFly__) || defined(__FreeBSD__)
 +   pthread_set_name_np(pthread_self(), name);
++#  elif defined(__NetBSD__)
++   pthread_setname_np(pthread_self(), "%s", (void*)name);
  #  endif
  #endif
     (void)name;
-@@ -83,6 +92,17 @@ static inline void
+@@ -83,6 +94,17 @@ static inline void
  util_pin_thread_to_L3(thrd_t thread, unsigned L3_index, unsigned cores_per_L3)
  {
  #if defined(HAVE_PTHREAD_SETAFFINITY)
-+#if defined(__NetBSD__)
++#if defined(__NetBSD__) && defined(SETAFFINITY_NP_NETBSD)
 +   cpuset_t *cpuset;
 +   cpuset = cpuset_create();
 +   if (cpuset == NULL)
@@ -52,7 +54,7 @@ https://reviews.freebsd.org/D17872
     cpu_set_t cpuset;
  
     CPU_ZERO(&cpuset);
-@@ -90,6 +110,7 @@ util_pin_thread_to_L3(thrd_t thread, uns
+@@ -90,6 +112,7 @@ util_pin_thread_to_L3(thrd_t thread, uns
        CPU_SET(L3_index * cores_per_L3 + i, &cpuset);
     pthread_setaffinity_np(thread, sizeof(cpuset), &cpuset);
  #endif
@@ -60,11 +62,11 @@ https://reviews.freebsd.org/D17872
  }
  
  /**
-@@ -103,6 +124,35 @@ static inline int
+@@ -103,6 +126,35 @@ static inline int
  util_get_L3_for_pinned_thread(thrd_t thread, unsigned cores_per_L3)
  {
  #if defined(HAVE_PTHREAD_SETAFFINITY)
-+#if defined(__NetBSD__)
++#if defined(__NetBSD__) && defined(SETAFFINITY_NP_NETBSD)
 +   cpuset_t *cpuset;
 +
 +   cpuset = cpuset_create();
@@ -96,7 +98,7 @@ https://reviews.freebsd.org/D17872
     cpu_set_t cpuset;
  
     if (pthread_getaffinity_np(thread, sizeof(cpuset), &cpuset) == 0) {
-@@ -123,6 +173,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
+@@ -123,6 +175,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
        return L3_index;
     }
  #endif
@@ -104,12 +106,12 @@ https://reviews.freebsd.org/D17872
     return -1;
  }
  
-@@ -134,7 +185,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
+@@ -134,7 +187,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
  static inline int64_t
  u_thread_get_time_nano(thrd_t thread)
  {
 -#if defined(__linux__) && defined(HAVE_PTHREAD)
-+#if (defined(__linux__) || defined(__DragonFly__) || defined(__FreeBSD__)) && defined(HAVE_PTHREAD)
++#if (defined(__linux__) || defined(USE_PTHREAD_GETCPUCLOCKID)) && defined(HAVE_PTHREAD)
     struct timespec ts;
     clockid_t cid;
  

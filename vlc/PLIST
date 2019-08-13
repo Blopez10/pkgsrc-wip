@@ -14,7 +14,7 @@
 @pkgdir share/vlc/osdmenu/dvd/volume
 @pkgdir share/vlc/skins2/fonts
 bin/cvlc
-${PLIST.x11}bin/qvlc
+${PLIST.qt5}bin/qvlc
 bin/rvlc
 ${PLIST.vlc-skins}bin/svlc
 bin/vlc
@@ -122,8 +122,8 @@ lib/libvlccore.la
 lib/pkgconfig/libvlc.pc
 lib/pkgconfig/vlc-plugin.pc
 ${PLIST.pulseaudio}lib/vlc/libvlc_pulse.la
-${PLIST.x11}lib/vlc/libvlc_vdpau.la
-${PLIST.x11}lib/vlc/libvlc_xcb_events.la
+${PLIST.qt5}lib/vlc/libvlc_vdpau.la
+${PLIST.qt5}lib/vlc/libvlc_xcb_events.la
 lib/vlc/lua/extensions/VLSub.luac
 lib/vlc/lua/intf/cli.luac
 lib/vlc/lua/intf/dummy.luac
@@ -160,6 +160,7 @@ lib/vlc/lua/playlist/vocaroo.luac
 lib/vlc/lua/playlist/youtube.luac
 lib/vlc/lua/sd/icecast.luac
 lib/vlc/lua/sd/jamendo.luac
+${PLIST.alsa}lib/vlc/plugins/access/libaccess_alsa_plugin.la
 lib/vlc/plugins/access/libaccess_concat_plugin.la
 lib/vlc/plugins/access/libaccess_imem_plugin.la
 ${PLIST.jack}lib/vlc/plugins/access/libaccess_jack_plugin.la
@@ -177,7 +178,6 @@ lib/vlc/plugins/access/libhttp_plugin.la
 lib/vlc/plugins/access/libhttps_plugin.la
 lib/vlc/plugins/access/libidummy_plugin.la
 lib/vlc/plugins/access/libimem_plugin.la
-${PLIST.live}lib/vlc/plugins/access/liblive555_plugin.la
 ${PLIST.pulseaudio}lib/vlc/plugins/access/libpulsesrc_plugin.la
 lib/vlc/plugins/access/librtp_plugin.la
 lib/vlc/plugins/access/libsatip_plugin.la
@@ -188,7 +188,7 @@ lib/vlc/plugins/access/libtimecode_plugin.la
 lib/vlc/plugins/access/libudp_plugin.la
 ${PLIST.cdrom}lib/vlc/plugins/access/libvcd_plugin.la
 lib/vlc/plugins/access/libvdr_plugin.la
-${PLIST.x11}lib/vlc/plugins/access/libxcb_screen_plugin.la
+${PLIST.qt5}lib/vlc/plugins/access/libxcb_screen_plugin.la
 lib/vlc/plugins/access_output/libaccess_output_dummy_plugin.la
 lib/vlc/plugins/access_output/libaccess_output_file_plugin.la
 lib/vlc/plugins/access_output/libaccess_output_http_plugin.la
@@ -212,6 +212,7 @@ lib/vlc/plugins/audio_filter/libremap_plugin.la
 lib/vlc/plugins/audio_filter/libscaletempo_pitch_plugin.la
 lib/vlc/plugins/audio_filter/libscaletempo_plugin.la
 lib/vlc/plugins/audio_filter/libsimple_channel_mixer_plugin.la
+lib/vlc/plugins/audio_filter/libsoxr_plugin.la
 lib/vlc/plugins/audio_filter/libspatializer_plugin.la
 lib/vlc/plugins/audio_filter/libspeex_resampler_plugin.la
 lib/vlc/plugins/audio_filter/libstereo_widen_plugin.la
@@ -222,6 +223,7 @@ lib/vlc/plugins/audio_mixer/libfloat_mixer_plugin.la
 lib/vlc/plugins/audio_mixer/libinteger_mixer_plugin.la
 lib/vlc/plugins/audio_output/libadummy_plugin.la
 lib/vlc/plugins/audio_output/libafile_plugin.la
+${PLIST.alsa}lib/vlc/plugins/audio_output/libalsa_plugin.la
 lib/vlc/plugins/audio_output/libamem_plugin.la
 ${PLIST.jack}lib/vlc/plugins/audio_output/libjack_plugin.la
 ${PLIST.oss}lib/vlc/plugins/audio_output/liboss_plugin.la
@@ -239,7 +241,7 @@ ${PLIST.dts}lib/vlc/plugins/codec/libdca_plugin.la
 lib/vlc/plugins/codec/libddummy_plugin.la
 lib/vlc/plugins/codec/libdvbsub_plugin.la
 lib/vlc/plugins/codec/libedummy_plugin.la
-${PLIST.faad}lib/vlc/plugins/codec/libfaad_plugin.la
+lib/vlc/plugins/codec/libfaad_plugin.la
 lib/vlc/plugins/codec/libflac_plugin.la
 lib/vlc/plugins/codec/libfluidsynth_plugin.la
 lib/vlc/plugins/codec/libg711_plugin.la
@@ -248,6 +250,7 @@ lib/vlc/plugins/codec/libkate_plugin.la
 lib/vlc/plugins/codec/liblibass_plugin.la
 lib/vlc/plugins/codec/liblibmpeg2_plugin.la
 lib/vlc/plugins/codec/liblpcm_plugin.la
+lib/vlc/plugins/codec/libmpg123_plugin.la
 lib/vlc/plugins/codec/liboggspots_plugin.la
 lib/vlc/plugins/codec/libopus_plugin.la
 lib/vlc/plugins/codec/libpng_plugin.la
@@ -264,7 +267,6 @@ lib/vlc/plugins/codec/libsubsdec_plugin.la
 lib/vlc/plugins/codec/libsubstx3g_plugin.la
 lib/vlc/plugins/codec/libsubsusf_plugin.la
 lib/vlc/plugins/codec/libsvcdsub_plugin.la
-lib/vlc/plugins/codec/libsvgdec_plugin.la
 lib/vlc/plugins/codec/libt140_plugin.la
 lib/vlc/plugins/codec/libtelx_plugin.la
 lib/vlc/plugins/codec/libtextst_plugin.la
@@ -276,9 +278,7 @@ ${PLIST.vaapi}lib/vlc/plugins/codec/libvaapi_plugin.la
 lib/vlc/plugins/codec/libvorbis_plugin.la
 lib/vlc/plugins/codec/libvpx_plugin.la
 lib/vlc/plugins/codec/libwebvtt_plugin.la
-lib/vlc/plugins/codec/libx264_plugin.la
-lib/vlc/plugins/codec/libx26410b_plugin.la
-${PLIST.x11}lib/vlc/plugins/codec/libxwd_plugin.la
+${PLIST.qt5}lib/vlc/plugins/codec/libxwd_plugin.la
 ${PLIST.dbus}lib/vlc/plugins/control/libdbus_plugin.la
 lib/vlc/plugins/control/libdummy_plugin.la
 lib/vlc/plugins/control/libgestures_plugin.la
@@ -287,7 +287,7 @@ ${PLIST.lirc}lib/vlc/plugins/control/liblirc_plugin.la
 lib/vlc/plugins/control/libmotion_plugin.la
 lib/vlc/plugins/control/libnetsync_plugin.la
 lib/vlc/plugins/control/liboldrc_plugin.la
-${PLIST.x11}lib/vlc/plugins/control/libxcb_hotkeys_plugin.la
+${PLIST.qt5}lib/vlc/plugins/control/libxcb_hotkeys_plugin.la
 lib/vlc/plugins/demux/libadaptive_plugin.la
 lib/vlc/plugins/demux/libaiff_plugin.la
 lib/vlc/plugins/demux/libasf_plugin.la
@@ -331,7 +331,7 @@ lib/vlc/plugins/demux/libvobsub_plugin.la
 lib/vlc/plugins/demux/libvoc_plugin.la
 lib/vlc/plugins/demux/libwav_plugin.la
 lib/vlc/plugins/demux/libxa_plugin.la
-${PLIST.x11}lib/vlc/plugins/gui/libqt_plugin.la
+${PLIST.qt5}lib/vlc/plugins/gui/libqt_plugin.la
 ${PLIST.vlc-skins}lib/vlc/plugins/gui/libskins2_plugin.la
 lib/vlc/plugins/keystore/libfile_keystore_plugin.la
 ${PLIST.dbus}lib/vlc/plugins/keystore/libkwallet_plugin.la
@@ -352,7 +352,7 @@ lib/vlc/plugins/misc/libgnutls_plugin.la
 lib/vlc/plugins/misc/liblogger_plugin.la
 lib/vlc/plugins/misc/libstats_plugin.la
 lib/vlc/plugins/misc/libvod_rtsp_plugin.la
-${PLIST.x11}lib/vlc/plugins/misc/libxdg_screensaver_plugin.la
+${PLIST.qt5}lib/vlc/plugins/misc/libxdg_screensaver_plugin.la
 lib/vlc/plugins/misc/libxml_plugin.la
 lib/vlc/plugins/mux/libmux_asf_plugin.la
 lib/vlc/plugins/mux/libmux_avi_plugin.la
@@ -384,7 +384,7 @@ lib/vlc/plugins/services_discovery/libpodcast_plugin.la
 ${PLIST.pulseaudio}lib/vlc/plugins/services_discovery/libpulselist_plugin.la
 lib/vlc/plugins/services_discovery/libsap_plugin.la
 lib/vlc/plugins/services_discovery/libupnp_plugin.la
-${PLIST.x11}lib/vlc/plugins/services_discovery/libxcb_apps_plugin.la
+${PLIST.qt5}lib/vlc/plugins/services_discovery/libxcb_apps_plugin.la
 lib/vlc/plugins/spu/libaudiobargraph_v_plugin.la
 lib/vlc/plugins/spu/libdynamicoverlay_plugin.la
 lib/vlc/plugins/spu/liblogo_plugin.la
@@ -393,6 +393,7 @@ lib/vlc/plugins/spu/libmosaic_plugin.la
 lib/vlc/plugins/spu/libremoteosd_plugin.la
 lib/vlc/plugins/spu/librss_plugin.la
 lib/vlc/plugins/spu/libsubsdelay_plugin.la
+lib/vlc/plugins/stream_extractor/libarchive_plugin.la
 lib/vlc/plugins/stream_filter/libadf_plugin.la
 lib/vlc/plugins/stream_filter/libcache_block_plugin.la
 lib/vlc/plugins/stream_filter/libcache_read_plugin.la
@@ -420,16 +421,15 @@ lib/vlc/plugins/stream_out/libstream_out_smem_plugin.la
 lib/vlc/plugins/stream_out/libstream_out_standard_plugin.la
 lib/vlc/plugins/stream_out/libstream_out_stats_plugin.la
 lib/vlc/plugins/stream_out/libstream_out_transcode_plugin.la
-${PLIST.x11}lib/vlc/plugins/text_renderer/libfreetype_plugin.la
-lib/vlc/plugins/text_renderer/libsvg_plugin.la
+${PLIST.qt5}lib/vlc/plugins/text_renderer/libfreetype_plugin.la
 lib/vlc/plugins/text_renderer/libtdummy_plugin.la
 ${PLIST.vaapi}lib/vlc/plugins/vaapi/libvaapi_filters_plugin.la
-${PLIST.x11}lib/vlc/plugins/vdpau/libvdpau_adjust_plugin.la
-${PLIST.x11}lib/vlc/plugins/vdpau/libvdpau_avcodec_plugin.la
-${PLIST.x11}lib/vlc/plugins/vdpau/libvdpau_chroma_plugin.la
-${PLIST.x11}lib/vlc/plugins/vdpau/libvdpau_deinterlace_plugin.la
-${PLIST.x11}lib/vlc/plugins/vdpau/libvdpau_display_plugin.la
-${PLIST.x11}lib/vlc/plugins/vdpau/libvdpau_sharpen_plugin.la
+${PLIST.qt5}lib/vlc/plugins/vdpau/libvdpau_adjust_plugin.la
+${PLIST.qt5}lib/vlc/plugins/vdpau/libvdpau_avcodec_plugin.la
+${PLIST.qt5}lib/vlc/plugins/vdpau/libvdpau_chroma_plugin.la
+${PLIST.qt5}lib/vlc/plugins/vdpau/libvdpau_deinterlace_plugin.la
+${PLIST.qt5}lib/vlc/plugins/vdpau/libvdpau_display_plugin.la
+${PLIST.qt5}lib/vlc/plugins/vdpau/libvdpau_sharpen_plugin.la
 lib/vlc/plugins/video_chroma/libchain_plugin.la
 lib/vlc/plugins/video_chroma/libgrey_yuv_plugin.la
 lib/vlc/plugins/video_chroma/libi420_10_p010_plugin.la
@@ -493,18 +493,18 @@ lib/vlc/plugins/video_filter/libwave_plugin.la
 ${PLIST.egl}lib/vlc/plugins/video_output/libegl_x11_plugin.la
 lib/vlc/plugins/video_output/libflaschen_plugin.la
 lib/vlc/plugins/video_output/libgl_plugin.la
-${PLIST.x11}${PLIST.vaapi}lib/vlc/plugins/video_output/libglconv_vaapi_drm_plugin.la
-${PLIST.x11}${PLIST.vaapi}lib/vlc/plugins/video_output/libglconv_vaapi_x11_plugin.la
-${PLIST.x11}lib/vlc/plugins/video_output/libglconv_vdpau_plugin.la
-${PLIST.x11}lib/vlc/plugins/video_output/libglx_plugin.la
+${PLIST.egl}${PLIST.qt5}${PLIST.vaapi}lib/vlc/plugins/video_output/libglconv_vaapi_drm_plugin.la
+${PLIST.egl}${PLIST.qt5}${PLIST.vaapi}lib/vlc/plugins/video_output/libglconv_vaapi_x11_plugin.la
+${PLIST.qt5}lib/vlc/plugins/video_output/libglconv_vdpau_plugin.la
+${PLIST.qt5}lib/vlc/plugins/video_output/libglx_plugin.la
 lib/vlc/plugins/video_output/libvdummy_plugin.la
 lib/vlc/plugins/video_output/libvmem_plugin.la
-${PLIST.x11}lib/vlc/plugins/video_output/libxcb_window_plugin.la
-${PLIST.x11}lib/vlc/plugins/video_output/libxcb_x11_plugin.la
-${PLIST.x11}lib/vlc/plugins/video_output/libxcb_xv_plugin.la
+${PLIST.qt5}lib/vlc/plugins/video_output/libxcb_window_plugin.la
+${PLIST.qt5}lib/vlc/plugins/video_output/libxcb_x11_plugin.la
+${PLIST.qt5}lib/vlc/plugins/video_output/libxcb_xv_plugin.la
 lib/vlc/plugins/video_output/libyuv_plugin.la
 lib/vlc/plugins/video_splitter/libclone_plugin.la
-${PLIST.x11}lib/vlc/plugins/video_splitter/libpanoramix_plugin.la
+${PLIST.qt5}lib/vlc/plugins/video_splitter/libpanoramix_plugin.la
 lib/vlc/plugins/video_splitter/libwall_plugin.la
 lib/vlc/plugins/visualization/libglspectrum_plugin.la
 lib/vlc/plugins/visualization/libvisual_plugin.la

@@ -39,12 +39,15 @@ CFLAGS+=	-D_BSD_SOURCE
 
 BUILD_TARGET=	all doc
 INSTALL_TARGET=	install install-doc
+TEST_TARGET=	test
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}/${EGDIR} && \
 	${INSTALL_DATA} ${WRKSRC}/tigrc ${DESTDIR}/${EGDIR}
 
-.include "options.mk"
+USE_CURSES=		getsyx
 
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

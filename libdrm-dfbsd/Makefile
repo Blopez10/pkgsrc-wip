@@ -1,6 +1,21 @@
-# $NetBSD: Makefile,v 1.91 2019/01/22 21:50:47 wiz Exp $
+# $NetBSD: Makefile,v 1.92 2019/04/23 09:51:47 wiz Exp $
 
-DISTNAME=		libdrm-2.4.97
+# 2019-07-02		Bump version to 2.4.99
+# COMMIT_ID=		b2103fa3257daa6acfdc6f4d4d8565abebaec4a8
+
+# 2019-05-16		amdgpu: Add amdgpu_cs_syncobj_transfer to amdgpu-symbol-check
+# COMMIT_ID=		922d92994267743266024ecceb734ce0ebbca808
+
+# PORTNAME=		drm
+
+# DISTNAME=		${PORTNAME}-${COMMIT_ID}
+# PKGNAME=		libdrm-2.4.98
+# PKGREVISION=	2
+# CATEGORIES=		x11 graphics
+# MASTER_SITES=		http://cgit.freedesktop.org/mesa/${PORTNAME}/snapshot/
+# EXTRACT_SUFX=		.tar.xz
+
+DISTNAME=		libdrm-2.4.99
 CATEGORIES=		x11 graphics
 MASTER_SITES=		http://dri.freedesktop.org/libdrm/
 EXTRACT_SUFX=		.tar.bz2
@@ -14,9 +29,9 @@ ONLY_FOR_PLATFORM=	NetBSD-*-* DragonFly-*-* FreeBSD-*-* OpenBSD-*-* \
 
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
-USE_LIBTOOL=		yes
+# USE_LIBTOOL=		yes
 PKGCONFIG_OVERRIDE+=	libdrm.pc.in
-GNU_CONFIGURE=		yes
+# GNU_CONFIGURE=		yes
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -41,6 +56,8 @@ CONFIGURE_ARGS+=	PTHREADSTUBS_CFLAGS=-I${PREFIX}/include \
 			PTHREADSTUBS_LIBS=-L${PREFIX}/lib
 CONFIGURE_ARGS+=	--disable-manpages
 CONFIGURE_ARGS+=	--disable-valgrind
+MESON_ARGS+=	-Dman-pages=false
+MESON_ARGS+=	-Dvalgrind=false
 
 LDFLAGS.NetBSD+=	-lpci
 
@@ -62,9 +79,19 @@ PKG_OPTIONS_VAR=	PKG_OPTIONS.libdrm
 PKG_SUPPORTED_OPTIONS=	libkms
 PKG_SUGGESTED_OPTIONS=
 
+PKG_SUPPORTED_OPTIONS+=	invert_atomic_add_unless
+.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
+PKG_SUGGESTED_OPTIONS+=	invert_atomic_add_unless 
+.endif
+
 # .if !empty(MACHINE_ARCH:Mi386) || !empty(MACHINE_ARCH:Mx86_64)
 # PKG_SUGGESTED_OPTIONS+=	libkms
 # .endif
+
+PKG_SUPPORTED_OPTIONS+= strict_xsrc_netbsd
+.if ${OPSYS} == "NetBSD"
+PKG_SUGGESTED_OPTIONS+= strict_xsrc_netbsd
+.endif
 
 .include "../../mk/bsd.options.mk"
 
@@ -73,8 +100,22 @@ PLIST_VARS+=	libkms
 PKGCONFIG_OVERRIDE+=	libkms.pc.in
 PLIST.libkms=	yes
 CONFIGURE_ARGS+=	--enable-libkms
+MESON_ARGS+=	-Dlibkms=true
 .else
-#CONFIGURE_ARGS+=	--disable-libkms
+CONFIGURE_ARGS+=	--disable-libkms
+MESON_ARGS+=	-Dlibkms=false
 .endif
+
+.if !empty(PKG_OPTIONS:Minvert_atomic_add_unless)
+CPPFLAGS+=	-DINVERT_ATOMIC_ADD_UNLESS
+.endif
+
+.if !empty(PKG_OPTIONS:Mstrict_xsrc_netbsd)
+CPPFLAGS+=	-DSTRICT_XSRC_NETBSD
+.endif
+
+# Meson
+# CPPFLAGS+=	-Wno-return-type
+.include "../../devel/py-meson/build.mk"
 
 .include "../../mk/bsd.pkg.mk"

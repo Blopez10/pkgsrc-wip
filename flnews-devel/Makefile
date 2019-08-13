@@ -1,6 +1,6 @@
 # $NetBSD$
 
-FLNEWS_VERSION=	0.17pre3
+FLNEWS_VERSION=	0.17pre14
 
 DISTNAME=	flnews-${FLNEWS_VERSION}
 CATEGORIES=	news
@@ -10,7 +10,7 @@ MASTER_SITES+=	http://www.southcity.de/flnews/src/
 EXTRACT_SUFX=	.tar.bz2
 #EXTRACT_USING=	bsdtar
 
-MAINTAINER=	michael.baeuerle@gmx.net
+MAINTAINER=	micha@NetBSD.org
 HOMEPAGE=	http://micha.freeshell.org/flnews/
 COMMENT=	Fast and lightweight USENET newsreader with GUI
 LICENSE=	modified-bsd AND 2-clause-bsd AND unicode
@@ -33,7 +33,7 @@ SUBST_STAGE.edit-config=	pre-configure
 SUBST_MESSAGE.edit-config=	Preparing CONFIG file ...
 SUBST_FILES.edit-config=	CONFIG
 SUBST_SED.edit-config=		-e 's,@VERSION@,${FLNEWS_VERSION},g'
-SUBST_SED.edit-config+=		-e 's,@PREFIX@,${PREFIX},g'
+SUBST_VARS.edit-config=		PREFIX
 SUBST_SED.edit-config+=		-e 's,@MAINT@,${FLNEWS_MAINTAINER},g'
 SUBST_SED.edit-config+=		-e 's,@IP6@,${FLNEWS_OPT_DISABLE_IP6},g'
 SUBST_SED.edit-config+=		-e 's,@NLS@,${FLNEWS_OPT_DISABLE_NLS},g'

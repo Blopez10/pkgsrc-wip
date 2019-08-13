@@ -40,10 +40,8 @@ do-install:
 	    ${DESTDIR}${PREFIX}/libexec
 	${INSTALL_PROGRAM} ${WRKSRC}/src/tess_server \
 	    ${DESTDIR}${PREFIX}/libexec
-	${CP} -R ${WRKSRC}/config \
-	    ${DESTDIR}${PREFIX}/share/tesseract
-	${CP} -R ${WRKSRC}/media \
-	    ${DESTDIR}${PREFIX}/share/tesseract
+	cd ${WRKSRC}/config && ${PAX} -rw -pp . ${DESTDIR}${PREFIX}/share/tesseract/config
+	cd ${WRKSRC}/media && ${PAX} -rw -pp . ${DESTDIR}${PREFIX}/share/tesseract/media
 
 .include "../../audio/SDL2_mixer/buildlink3.mk"
 .include "../../graphics/MesaLib/buildlink3.mk"

@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=		gnunet-0.11.3
+DISTNAME=		gnunet-0.11.5
 CATEGORIES=		net
 MASTER_SITES=		${MASTER_SITE_GNU:=gnunet/}
 
@@ -17,8 +17,6 @@ TEST_TARGET=		check
 
 PTHREAD_OPTS=		require native
 LDFLAGS+=		-lpthread -lintl
-
-INFO_FILES=		yes
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"

@@ -5,8 +5,8 @@ PKGNAME=			${DISTNAME:S/_/-/}
 CATEGORIES=			sysutils emulators
 MASTER_SITES=			${MASTER_SITE_DEBIAN:=pool/main/d/debootstrap/}
 DISTFILES=			${DEFAULT_DISTFILES} ${DEBIAN_KEYRING_DEB} ${UBUNTU_KEYRING_DEB}
-DEBIAN_KEYRING_DEB=		debian-archive-keyring_2014.3_all.deb
-UBUNTU_KEYRING_DEB=		ubuntu-archive-keyring_2012.05.19-1_all.deb
+DEBIAN_KEYRING_DEB=		debian-archive-keyring_2019.1_all.deb
+UBUNTU_KEYRING_DEB=		ubuntu-archive-keyring_2018.09.18.1-5_all.deb
 SITES.${DEBIAN_KEYRING_DEB}=	${MASTER_SITE_DEBIAN:=pool/main/d/debian-archive-keyring/}
 SITES.${UBUNTU_KEYRING_DEB}=	${MASTER_SITE_DEBIAN:=pool/main/u/ubuntu-keyring/}
 
@@ -40,7 +40,7 @@ SUBST_CLASSES+=			fix-paths2
 SUBST_STAGE.fix-paths2=		pre-configure
 SUBST_MESSAGE.fix-paths2=	Fixing absolute paths.
 SUBST_FILES.fix-paths2=		debootstrap
-SUBST_SED.fix-paths2=		-e 's,@PREFIX@,${PREFIX},g'
+SUBST_VARS.fix-paths2=		PREFIX
 
 SUBST_CLASSES+=			fix-paths3
 SUBST_STAGE.fix-paths3=		pre-configure

@@ -1133,6 +1133,8 @@ share/emacs/${PKGVERSION}/lisp/calendar/holidays.el.gz
 share/emacs/${PKGVERSION}/lisp/calendar/holidays.elc
 share/emacs/${PKGVERSION}/lisp/calendar/icalendar.el.gz
 share/emacs/${PKGVERSION}/lisp/calendar/icalendar.elc
+share/emacs/${PKGVERSION}/lisp/calendar/iso8601.el.gz
+share/emacs/${PKGVERSION}/lisp/calendar/iso8601.elc
 share/emacs/${PKGVERSION}/lisp/calendar/lunar.el.gz
 share/emacs/${PKGVERSION}/lisp/calendar/lunar.elc
 share/emacs/${PKGVERSION}/lisp/calendar/parse-time.el.gz
@@ -1506,6 +1508,8 @@ share/emacs/${PKGVERSION}/lisp/dirtrack.el.gz
 share/emacs/${PKGVERSION}/lisp/dirtrack.elc
 share/emacs/${PKGVERSION}/lisp/disp-table.el.gz
 share/emacs/${PKGVERSION}/lisp/disp-table.elc
+share/emacs/${PKGVERSION}/lisp/display-fill-column-indicator.el.gz
+share/emacs/${PKGVERSION}/lisp/display-fill-column-indicator.elc
 share/emacs/${PKGVERSION}/lisp/display-line-numbers.el.gz
 share/emacs/${PKGVERSION}/lisp/display-line-numbers.elc
 share/emacs/${PKGVERSION}/lisp/dnd.el.gz
@@ -1585,8 +1589,6 @@ share/emacs/${PKGVERSION}/lisp/emacs-lisp/cl-print.el.gz
 share/emacs/${PKGVERSION}/lisp/emacs-lisp/cl-print.elc
 share/emacs/${PKGVERSION}/lisp/emacs-lisp/cl-seq.el.gz
 share/emacs/${PKGVERSION}/lisp/emacs-lisp/cl-seq.elc
-share/emacs/${PKGVERSION}/lisp/emacs-lisp/cl.el.gz
-share/emacs/${PKGVERSION}/lisp/emacs-lisp/cl.elc
 share/emacs/${PKGVERSION}/lisp/emacs-lisp/copyright.el.gz
 share/emacs/${PKGVERSION}/lisp/emacs-lisp/copyright.elc
 share/emacs/${PKGVERSION}/lisp/emacs-lisp/crm.el.gz
@@ -2926,6 +2928,8 @@ share/emacs/${PKGVERSION}/lisp/obsolete/cc-compat.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/cc-compat.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/cl-compat.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/cl-compat.elc
+share/emacs/${PKGVERSION}/lisp/obsolete/cl.el.gz
+share/emacs/${PKGVERSION}/lisp/obsolete/cl.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/complete.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/complete.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/crisp.el.gz
@@ -2944,6 +2948,8 @@ share/emacs/${PKGVERSION}/lisp/obsolete/gulp.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/gulp.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/html2text.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/html2text.elc
+share/emacs/${PKGVERSION}/lisp/obsolete/info-edit.el.gz
+share/emacs/${PKGVERSION}/lisp/obsolete/info-edit.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/iswitchb.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/iswitchb.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/landmark.el.gz
@@ -2962,6 +2968,8 @@ share/emacs/${PKGVERSION}/lisp/obsolete/lucid.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/lucid.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/mailpost.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/mailpost.elc
+share/emacs/${PKGVERSION}/lisp/obsolete/mantemp.el.gz
+share/emacs/${PKGVERSION}/lisp/obsolete/mantemp.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/meese.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/meese.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/messcompat.el
@@ -3019,8 +3027,6 @@ share/emacs/${PKGVERSION}/lisp/obsolete/vip.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/vip.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/ws-mode.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/ws-mode.elc
-share/emacs/${PKGVERSION}/lisp/obsolete/xesam.el.gz
-share/emacs/${PKGVERSION}/lisp/obsolete/xesam.elc
 share/emacs/${PKGVERSION}/lisp/obsolete/yow.el.gz
 share/emacs/${PKGVERSION}/lisp/obsolete/yow.elc
 share/emacs/${PKGVERSION}/lisp/org/ob-C.el.gz
@@ -3466,8 +3472,6 @@ share/emacs/${PKGVERSION}/lisp/progmodes/m4-mode.el.gz
 share/emacs/${PKGVERSION}/lisp/progmodes/m4-mode.elc
 share/emacs/${PKGVERSION}/lisp/progmodes/make-mode.el.gz
 share/emacs/${PKGVERSION}/lisp/progmodes/make-mode.elc
-share/emacs/${PKGVERSION}/lisp/progmodes/mantemp.el.gz
-share/emacs/${PKGVERSION}/lisp/progmodes/mantemp.elc
 share/emacs/${PKGVERSION}/lisp/progmodes/meta-mode.el.gz
 share/emacs/${PKGVERSION}/lisp/progmodes/meta-mode.elc
 share/emacs/${PKGVERSION}/lisp/progmodes/mixal-mode.el.gz
@@ -3581,6 +3585,8 @@ share/emacs/${PKGVERSION}/lisp/site-init.el.gz
 share/emacs/${PKGVERSION}/lisp/site-init.elc
 share/emacs/${PKGVERSION}/lisp/skeleton.el.gz
 share/emacs/${PKGVERSION}/lisp/skeleton.elc
+share/emacs/${PKGVERSION}/lisp/so-long.el.gz
+share/emacs/${PKGVERSION}/lisp/so-long.elc
 share/emacs/${PKGVERSION}/lisp/sort.el.gz
 share/emacs/${PKGVERSION}/lisp/sort.elc
 share/emacs/${PKGVERSION}/lisp/soundex.el.gz

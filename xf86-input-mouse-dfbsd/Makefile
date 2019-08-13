@@ -27,6 +27,19 @@ SUBST_FILES.freebsdusb+=	src/Makefile.in
 SUBST_SED.freebsdusb+=		-e 's|-module -avoid-version|-module -avoid-version -lusbhid|'
 .endif
 
+PKG_OPTIONS_VAR=	PKG_OPTIONS.xf86-input-mouse
+PKG_SUPPORTED_OPTIONS=  debug	
+PKG_SUGGESTED_OPTIONS=  debug	
+
+.include "../../mk/bsd.options.mk"
+
+# Debug flags recommended for server and drivers by:
+# https://www.x.org/wiki/Development/Documentation/ServerDebugging/
+.if !empty(PKG_OPTIONS:Mdebug)
+CPPFLAGS+=		-DDEBUG
+CFLAGS+=		-O0 -g3
+.endif
+
 .include "../../x11/xorgproto/buildlink3.mk"
 .include "../../x11/modular-xorg-server/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

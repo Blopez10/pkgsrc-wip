@@ -9,7 +9,7 @@ PKG_SUPPORTED_OPTIONS+=	nonroot
 PKG_SUPPORTED_OPTIONS+=	strict-dfbsd
 
 .if ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
-PKG_SUGGESTED_OPTIONS+=	enable-in-rcvar	
+PKG_SUGGESTED_OPTIONS+=	enable-in-rcvar
 PKG_SUGGESTED_OPTIONS+=	strict-dfbsd
 .endif
 
@@ -22,7 +22,7 @@ PKG_SUPPORTED_OPTIONS+=	kqueue
 PKG_SUGGESTED_OPTIONS+=	kqueue
 .endif
 
-PLIST_VARS+=    	launchd
+PLIST_VARS+=		launchd
 # We may want to make it SUGGESTED once we have a framework for
 # launchd support. See PR/49591.
 PKG_SUPPORTED_OPTIONS.Darwin+=	launchd
@@ -38,7 +38,7 @@ CONFIGURE_ARGS+=	--disable-verbose-mode
 .endif
 
 .if !empty(PKG_OPTIONS:Mkqueue)
-CONFIGURE_ARGS+= 	--enable-kqueue
+CONFIGURE_ARGS+=	--enable-kqueue
 .else
 CONFIGURE_ARGS+=	--disable-kqueue
 .endif
@@ -91,6 +91,6 @@ BUILDLINK_TRANSFORM+=	rm:-pie
 
 # From OpenBSD ports
 # gives no chance of picking up devel/libexecinfo
-CONFIGURE_ENV +=	ac_cv_header_execinfo_h=no
-CONFIGURE_ENV +=	ac_cv_func_backtrace=no
+CONFIGURE_ENV+=	ac_cv_header_execinfo_h=no
+CONFIGURE_ENV+=	ac_cv_func_backtrace=no
 .endif
