@@ -1,13 +1,13 @@
 # $NetBSD$
 
-DISTNAME=	voluptuous-0.11.7
+DISTNAME=	voluptuous-serialize-2.1.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
-MASTER_SITES=	${MASTER_SITE_PYPI:=v/voluptuous/}
+MASTER_SITES=	${MASTER_SITE_PYPI:=v/voluptuous-serialize/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	https://github.com/alecthomas/voluptuous
-COMMENT=	Python data validation library
+HOMEPAGE=	https://github.com/balloob/voluptuous-serialize
+COMMENT=	Convert Voluptuous schemas to dictionaries
 LICENSE=	modified-bsd
 
 USE_LANGUAGES=	# none
