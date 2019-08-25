@@ -13,7 +13,9 @@ DISTNAME=	emacs-${_EMACS_VERSION_MAJOR}.${_EMACS_VERSION_MINOR}.${_EMACS_VERSION
 WRKSRC=		${WRKDIR}/emacs
 
 GIT_REPO=	git://git.savannah.gnu.org/emacs.git
-_GIT_FLAGS?=	--depth 1
+#_GIT_FLAGS?=	--depth 1
+## ^ default now. 
+## ^ To override, set GIT_DEEP_CLONE.default=yes local to this port
 
 # for example, Mac OS X 10.6.1 has 2.61 which fails
 AUTOCONF_REQD=	2.65
