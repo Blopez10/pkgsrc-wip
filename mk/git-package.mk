@@ -151,8 +151,16 @@ _GIT_REV.${repo}=	tags/${GIT_TAG.${repo}}
 _GIT_REV.${repo}=	origin/HEAD
 .  endif
 
-_GIT_FETCH_FLAGS.${repo}=	--quiet --recurse-submodules=yes --tags
-_GIT_CLONE_FLAGS.${repo}=	--quiet --recursive
+_GIT_FETCH_FLAGS.${repo}=	--quiet --tags
+_GIT_CLONE_FLAGS.${repo}=	--quiet
+
+. if empty(GIT_FETCH_RECURSIVE.${repo}:M[Nn][Oo])
+_GIT_FETCH_FLAGS.${repo}+=	--recurse-submodules=yes
+_GIT_CLONE_FLAGS.${repo}+=	--recurse-submodules=yes
+. else
+_GIT_FETCH_FLAGS.${repo}+=	--recurse-submodules=no
+_GIT_CLONE_FLAGS.${repo}+=	--recurse-submodules=no
+. endif
 
 # For revision checkout we need deep copy
 .  if !defined(GIT_REVISION.${repo}) && !empty(GIT_DEEP_CLONE.${repo}:M[yY][eE][sS])
