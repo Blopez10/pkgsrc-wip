@@ -1,43 +1,39 @@
-# $NetBSD: Makefile,v 1.8 2012/11/23 22:33:29 othyro Exp $
+# $NetBSD$
 
-DISTNAME=	emacs-nox11-24.0.90
+.include "../../wip/emacs-git/Makefile.common"
+.include "version.mk"
+.include "options.mk"
+
+DISTNAME:=	${DISTNAME:S/-/-nox11-/}
+PKGNAME:=	${PKGNAME:S/-/-nox11-/}
 PKGREVISION=	${_GIT_PKGVERSION:S/.//g}
-CATEGORIES=	editors
-GIT_REPO=	git://repo.or.cz/emacs.git
-
-MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.gnu.org/software/emacs/emacs.html
-COMMENT=	GNU editing macros (editor, no x11)
-LICENSE=	gnu-gpl-v3
-
-USE_TOOLS+=		gmake makeinfo gzip autoconf automake
-# for example, Mac OS X 10.6.1 has 2.61 which fails
-AUTOCONF_REQUIRED=	2.65
-
-CONFLICTS=	emacs-[0-9]*
-
-BUILD_TARGET=	bootstrap
-
-GNU_CONFIGURE=		yes
-INFO_FILES=		yes
-REPLACE_PERL=		lib-src/grep-changelog
-CHECK_INTERPRETER_SKIP=	bin/grep-changelog
 
 DISTINFO_FILE=	${PKGDIR}/../emacs-git/distinfo
 PATCHDIR=	${PKGDIR}/../emacs-git/patches
 DESCR_SRC=	${PKGDIR}/../emacs-git/DESCR
-#ESSAGE_SRC=	${PKGDIR}/../emacs-git/MESSAGE
+#MESSAGE_SRC=	${PKGDIR}/../emacs-git/MESSAGE
 PLIST_SRC=	${PKGDIR}/../emacs-git/PLIST
 
-WRKSRC=		${WRKDIR}/emacs
+COMMENT=	GNU editing macros (editor, no x11)
 
-CONFIGURE_ARGS+=	--without-x	# nox11
-CONFIGURE_ARGS+=	--srcdir=${WRKSRC}
-CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
-CONFIGURE_ENV+=		GAMEOWN=${GAMEOWN:Q}
+CONFLICTS=	emacs${_EMACS_VERSION_MAJOR}-nox11-[0-9]*
 
-BUILD_DEFS+=		VARBASE
-BUILD_DEFS+=		GAMEDATAMODE
+CONFIGURE_ARGS+=	--without-dbus
+CONFIGURE_ARGS+=	--without-xml2
+CONFIGURE_ARGS+=	--without-gnutls
+CONFIGURE_ARGS+=	--without-rsvg
+CONFIGURE_ARGS+=	--without-gconf
+CONFIGURE_ARGS+=	--without-imagemagick
+CONFIGURE_ARGS+=	--without-xaw3d
+CONFIGURE_ARGS+=	--without-xft --without-libotf --without-m17n-flt
+CONFIGURE_ARGS+=	--without-ns
+
+CONFIGURE_ARGS+=	--without-x
+CONFIGURE_ARGS+=	--without-xpm
+CONFIGURE_ARGS+=	--without-jpeg
+CONFIGURE_ARGS+=	--without-tiff
+CONFIGURE_ARGS+=	--without-gif
+CONFIGURE_ARGS+=	--without-png
 
 #SUBST_CLASSES+=		test_equal
 #SUBST_STAGE.test_equal=	pre-configure
@@ -45,22 +41,9 @@ BUILD_DEFS+=		GAMEDATAMODE
 #SUBST_FILES.test_equal=	mac/make-package
 #SUBST_SED.test_equal=		-e 's/ == / = /g'
 
-MAKE_DIRS_PERMS+=	${VARBASE}/games/emacs ${GAMEOWN:Q} ${GAMEGRP} ${GAMEDIRMODE:Q}
-CONF_FILES_PERMS+=	/dev/null ${VARBASE}/games/emacs/snake-scores ${GAMEOWN:Q} ${GAMEGRP:Q} ${GAMEDATAMODE}
-CONF_FILES_PERMS+=	/dev/null ${VARBASE}/games/emacs/tetris-scores ${GAMEOWN:Q} ${GAMEGRP:Q} ${GAMEDATAMODE}
+FILESDIR=	${.CURDIR}/../../wip/emacs-git/files
 
-# build PATH in the dumped emacs is not a problem
-CHECK_WRKREF_SKIP+=	bin/emacs
-CHECK_WRKREF_SKIP+=	bin/emacs-${PKGVERSION_NOREV}
+## Share _GIT_DISTFILE.default with wip/emacs-git
+_GIT_DISTFILE.default=${_EMACS_FLAVOR}${_EMACS_VERSION_MAJOR}-default-gitarchive.tar.gz
 
-FILESDIR=	${.CURDIR}/../../editors/emacs/files
-
-post-extract:
-	${CP} ${FILESDIR}/site-init.el ${WRKSRC}/lisp
-
-pre-configure:
-	(cd ${WRKSRC}; ./autogen.sh)
-
-.include "../../wip/mk/git-package.mk"
-.include "../../mk/oss.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
