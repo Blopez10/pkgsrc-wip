@@ -2,8 +2,8 @@
 
 ### Set options
 PKG_OPTIONS_VAR=			PKG_OPTIONS.emacs
-PKG_SUPPORTED_OPTIONS=			dbus gconf gnutls imagemagick jansson svg xaw3d xft2 xml
-PKG_SUGGESTED_OPTIONS=			jansson
+PKG_SUPPORTED_OPTIONS=			dbus gconf gnutls imagemagick jansson svg xaw3d xft2 xml debug
+PKG_SUGGESTED_OPTIONS=			jansson debug
 # xaw3d is only valid with tookit = xaw
 
 PKG_OPTIONS_OPTIONAL_GROUPS+=		window-system
@@ -24,6 +24,11 @@ PKG_OPTIONS_GROUP.toolkit=		gtk gtk2 gtk3 motif xaw lucid
 PKG_SUGGESTED_OPTIONS=	dbus gconf gnutls gtk3 svg xaw3d xft2 xml x11
 
 .include "../../mk/bsd.options.mk"
+
+.if !empty(PKG_OPTIONS:Mdebug)
+# For wip special, following gives symbol names when back trace is shown.
+CFLAGS+=		-g
+.endif
 
 ### ---	 Check window-system independent options first
 ###
@@ -115,11 +120,7 @@ CONFIGURE_ARGS+=	--without-xaw3d
 .include "../../graphics/libotf/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../x11/libXft/buildlink3.mk"
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	 --without-m17n-flt
-.else
 .include "../../devel/m17n-lib/buildlink3.mk"
-.endif
 .  else
 CONFIGURE_ARGS+=	--without-xft --without-libotf --without-m17n-flt
 .  endif

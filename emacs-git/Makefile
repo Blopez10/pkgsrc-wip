@@ -7,10 +7,7 @@ CONFLICTS=	emacs27-nox11-[0-9]*
 
 WRKSRC=		${WRKDIR}/emacs
 
-# For wip special, following gives symbol names when back trace is shown.
-CFLAGS+=		-g
-
-PLIST_SRC+=		PLIST
+PLIST_SRC=	${PKGDIR}/../emacs-git/PLIST
 
 .include "options.mk"
 
