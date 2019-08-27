@@ -2,8 +2,8 @@
 
 ### Set options
 PKG_OPTIONS_VAR=			PKG_OPTIONS.emacs
-PKG_SUPPORTED_OPTIONS=			jansson
-PKG_SUGGESTED_OPTIONS=			jansson
+PKG_SUPPORTED_OPTIONS=			gnutls jansson
+PKG_SUGGESTED_OPTIONS=			gnutls jansson
 
 .include "../../mk/bsd.options.mk"
 
