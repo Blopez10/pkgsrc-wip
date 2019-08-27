@@ -12,11 +12,19 @@ LICENSE=		gnu-lgpl-v2.1
 
 ONLY_FOR_PLATFORM+=	*-*-i386
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--disable-tests
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		bison flex gmake mktemp msgfmt autoconf perl
 REPLACE_PERL+=		tools/winemaker/winemaker tools/winedump/function_grep.pl
 NOT_PAX_MPROTECT_SAFE+=	bin/wine
+
+# XXX: Fix warning due to _FORTIFY_SOURCE being redefined
+CONFIGURE_ENV+=		ac_cv_c_fortify_enabled=no
+
+# XXX: Disable new_dtags as NetBSD versions prior to 9.0 don't honor DT_RUNPATH
+CONFIGURE_ENV+=         ac_cv_cflags__Wl___enable_new_dtags=no
+
+# XXX: Stop Wine from using gethostbyname_r like in linux
+CONFIGURE_ENV+=		wine_cv_linux_gethostbyname_r_6=no
 
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/giflib/buildlink3.mk"

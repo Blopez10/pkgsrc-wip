@@ -1,9 +1,9 @@
 # $NetBSD$
 
-DISTNAME=	cannonball-0.3.20171201
+DISTNAME=	cannonball-0.3.20190819
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_GITHUB:=djyt/}
-GITHUB_TAG=	0c0814d8233ee4e5be7beb309b8e16e0eecbb2e6
+GITHUB_TAG=	48d2c6294b0bf3e16be4c2a83399da9108544d5f
 EXTRACT_USING=	bsdtar
 
 MAINTAINER=	fox@NetBSD.org
@@ -15,23 +15,17 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		pkg-config
 USE_CMAKE=		yes
 CONFIGURE_DIRS=		build
-CMAKE_ARG_PATH=		..
-BUILD_MAKE_FLAGS+=	VERBOSE=1
+CMAKE_ARG_PATH=		${WRKSRC}/cmake
+CMAKE_ARGS.Linux+=	-DTARGET=debian
+CMAKE_ARGS.NetBSD+=	-G "Unix Makefiles"
+CMAKE_ARGS.NetBSD+=	-DTARGET=bsd
+CMAKE_ARGS.NetBSD+=	-DBSD_PREFIX_PATH:STRING=${PREFIX}
 
 INSTALLATION_DIRS+=	bin libexec share/cannonball share/cannonball/res \
 			share/cannonball/conf ${PKGMANDIR}/man6
 
-SUBST_CLASSES+=		prefix
-SUBST_STAGE.prefix=	pre-configure
-SUBST_MESSAGE.prefix=	Set correct prefix in bsd.cmake
-SUBST_FILES.prefix=	${WRKSRC}/cmake/bsd.cmake
-SUBST_VARS.prefix=	PREFIX
-
 pre-configure:
 	${MKDIR} ${WRKSRC}/build
-
-do-configure:
-	cd ${WRKSRC}/build && cmake -G "Unix Makefiles" -DTARGET=bsd ${WRKSRC}/cmake
 
 post-build:
 	${SED} -e 's,@PREFIX@,${PREFIX},g' < ${FILESDIR}/cannonball.sh.in > \
@@ -48,7 +42,7 @@ do-install:
 	    ${DESTDIR}${PREFIX}/bin/cannonball
 	${INSTALL_PROGRAM} ${WRKSRC}/build/cannonball \
 	    ${DESTDIR}${PREFIX}/libexec
-	${INSTALL_MAN} ${FILESDIR}/cannonball.6 \
+	${INSTALL_MAN} ${WRKSRC}/docs/cannonball.6 \
 	    ${DESTDIR}${PREFIX}/${PKGMANDIR}/man6
 
 .include "../../devel/boost-headers/buildlink3.mk"

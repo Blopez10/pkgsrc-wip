@@ -2,6 +2,7 @@
 
 DISTNAME=	homeassistant-0.97.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	2
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_PYPI:=h/homeassistant/}
 
@@ -14,6 +15,7 @@ LICENSE=	apache-2.0
 #EGG_INFODIR=	homeassistant-${VERSION}-py${PYVERSSUFFIX}.egg-info
 
 USE_LANGUAGES=	# none
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 DEPENDS+=	${PYPKGPREFIX}-aiohttp>=3.5.4:../../www/py-aiohttp
 #DEPENDS+=	${PYPKGPREFIX}-astral=1.10.1:../../FOO/py-astral
@@ -35,6 +37,15 @@ DEPENDS+=	${PYPKGPREFIX}-requests>=2.22.0:../../devel/py-requests
 DEPENDS+=	${PYPKGPREFIX}-ruamel-yaml>=0.15.99:../../devel/py-ruamel-yaml
 DEPENDS+=	${PYPKGPREFIX}-voluptuous>=0.11.5:../../wip/py-voluptuous
 #DEPENDS+=	${PYPKGPREFIX}-voluptuous-serialize>=2.1.0:../../FOO/py-voluptuous-serialize
+
+HASS_DIR=	${VARBASE}/hass
+
+PKG_GROUPS=	hass
+PKG_USERS=	hass:hass
+PKG_GECOS.hass=	Home Assistant
+PKG_HOME.hass=	${HASS_DIR}
+
+OWN_DIRS_PERMS=	${HASS_DIR} hass hass 0700
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
