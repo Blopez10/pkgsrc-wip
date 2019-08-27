@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=	musl-1.1.15
+DISTNAME=	musl-1.1.23
 CATEGORIES=	devel
 MASTER_SITES=	http://www.musl-libc.org/releases/
 
