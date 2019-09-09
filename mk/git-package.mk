@@ -155,12 +155,14 @@ _GIT_FETCH_FLAGS.${repo}=	--quiet --tags
 _GIT_CLONE_FLAGS.${repo}=	--quiet
 
 . if empty(GIT_FETCH_RECURSIVE.${repo}:M[Nn][Oo])
-_GIT_FETCH_FLAGS.${repo}+=	--recurse-submodules=yes
-_GIT_CLONE_FLAGS.${repo}+=	--recurse-submodules=yes
+_GIT_FETCH_FLAGS.${repo}+=	--recurse-submodules=on-demand
+_GIT_CLONE_FLAGS.${repo}+=	--recurse-submodules=on-demand
 . else
 _GIT_FETCH_FLAGS.${repo}+=	--recurse-submodules=no
 _GIT_CLONE_FLAGS.${repo}+=	--recurse-submodules=no
 . endif
+
+_GIT_SUBMODULES.${repo}+=	${GIT_SUBMODULES.${repo}}
 
 # For revision checkout we need deep copy
 .  if !defined(GIT_REVISION.${repo}) && !empty(GIT_DEEP_CLONE.${repo}:M[yY][eE][sS])
@@ -216,9 +218,12 @@ _GIT_CMD.checkout.${repo}= \
 	  rev_after=`${_GIT_CMDLINE.${repo}} -C "$$extractdir" show-ref HEAD`; \
 	fi;								\
 	\
-	${STEP_MSG} "Updating submodules of $$extractdir.";		\
+	${STEP_MSG} "Initializing submodules of $$extractdir. ${_GIT_SUBMODULES.${repo}}"; \
 	: "XXX: The revision of the submodules is not correct";		\
-	${_GIT_CMDLINE.${repo}} -C "$$extractdir" submodule update --recursive
+	${_GIT_CMDLINE.${repo}} -C "$$extractdir" submodule init ${_GIT_SUBMODULES.${repo}}; \
+	${STEP_MSG} "Updating submodules of $$extractdir. ${_GIT_SUBMODULES.${repo}}"; \
+	: "XXX: The revision of the submodules is not correct";		\
+	${_GIT_CMDLINE.${repo}} -C "$$extractdir" submodule update --recursive ${_GIT_SUBMODULES.${repo}}
 
 # Create the cached archive from the checked out repository
 _GIT_CMD.create_archive.${repo}= \
