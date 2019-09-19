@@ -55,21 +55,45 @@ BUILD_DEPENDS+=		sbcl-[0-9]*:../../lang/sbcl
 SUBST_CLASSES+=			fix-paths
 SUBST_STAGE.fix-paths=		pre-configure
 SUBST_MESSAGE.fix-paths=	Fixing absolute paths.
-SUBST_FILES.fix-paths=		install.sh src/runtime/runtime.c doc/sbcl.1
+SUBST_FILES.fix-paths=		doc/sbcl.1 doc/manual/intro.texinfo doc/manual/start-stop.texinfo
 SUBST_VARS.fix-paths=		PREFIX
 #SUBST_SED.fix-paths+=		-e 's,/var/log,${VARBASE}/log,g'
 
-SUBST_CLASSES+=			fix-gtar
-SUBST_STAGE.fix-gtar=		pre-configure
-SUBST_MESSAGE.fix-gtar=		Fixing GNU tar references.
-SUBST_FILES.fix-gtar=		contrib/asdf-install/installer.lisp
-SUBST_VARS.fix-gtar=		GTAR
+
+.if !empty(OPSYS:MNetBSD)
+## NB: This patch will probably fail w/ the current SBCL src.
+##
+## The newer asdf-module.mk system, now used in sb-prof, may need to be
+## tested for the affected test tgt, on a NetBSD system. Ideally, 
+## the asdf-module.mk src may not need a patch for the build
+_PKGSRC_PATCHES+= ${PATCHDIR}/nb-patch-revert-37d3828773e2f847bb1ed7522b0af4fb8e736fc8
+.endif
+
+.include "options.mk"
+
+.for OPT in ${SBCL_BUILD_WITH_OPTIONS}
+SBCL_BUILD_OPTIONS+=	--with-${OPT}
+.endfor
+
+.for OPT in ${SBCL_BUILD_WITHOUT_OPTIONS}
+SBCL_BUILD_OPTIONS+=	--without-${OPT}
+.endfor
+
+.if !empty(PKG_OPTIONS:Mdoc)
+SBCL_BUILD_DOCS=	true
+USE_TOOLS+=		gmake
+INFOFILES+=		${WRKSRC}/doc/manual/*.info ${WRKSRC}/doc/manual/*.info-*
+
+do-install:
+	rm -f ${DESTDIR}${PREFIX}/share/info/dir
+.endif
 
 pre-build:
 	cd ${WRKSRC} && ${ECHO} '"1.0.99"' > version.lisp-expr
 do-build:
-	cd ${WRKSRC} && ${SH} make.sh --prefix=${PREFIX} --xc-host=${SBCL_BOOT_SYSTEM:Q}
+	cd ${WRKSRC} && ${ENV} CC=${CC} ${SH} make.sh --prefix=${PREFIX} --xc-host=${SBCL_BOOT_SYSTEM:Q} ${SBCL_BUILD_OPTIONS}
 post-build:
+	${TEST} -n "${SBCL_BUILD_DOCS}" && ${GMAKE} -C ${WRKSRC}/doc/manual/ info MAKEINFO=${MAKEINFO}	
 	cd ${WRKSRC} && ${RM} -f contrib/sb-cover/test-output/*
 
 do-install:
@@ -78,6 +102,7 @@ do-install:
 	rm -f ${DESTDIR}${PREFIX}/lib/sbcl/sb-posix/posix-tests.lisp.orig
 	rm -f ${DESTDIR}${PREFIX}/lib/sbcl/sb-posix/test-output/write-test.txt
 	rm -f ${DESTDIR}${PREFIX}/lib/sbcl/sb-posix/test-output/read-test.txt
+	rm -f ${DESTDIR}${PREFIX}/bin/sbcl.old ${DESTDIR}${PREFIX}/lib/sbcl/sbcl.core.old
 	find ${DESTDIR}${PREFIX}/lib/sbcl -type d -name CVS -exec rm -rf {} \+
 	find ${DESTDIR}${PREFIX}/lib/sbcl -type f -name .cvsignore -exec rm -f {} \+
 
