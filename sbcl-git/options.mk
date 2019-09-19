@@ -21,7 +21,7 @@ PLIST.doc=	yes
 .endif
 
 
-## Advanced port build options for SBCL 
+## Advanced port build options for SBCL
 ##
 ## The following variables will affect SBCL_BUILD_OPTIONS:
 ##   SBCL_BUILD_WITH_OPTIONS
@@ -41,9 +41,9 @@ SBCL_BUILD_WITHOUT_OPTIONS+=	sb-xref-for-internals
 ## base-target-features.lisp-expr
 ##
 ##
-## TBD - Parsing PKG_OPTIONS.sbcl in order to verify that the 
-## set of provided options will not conflict with the following 
-## configuration logic -- furthermore, emitting an error message, 
+## TBD - Parsing PKG_OPTIONS.sbcl in order to verify that the
+## set of provided options will not conflict with the following
+## configuration logic -- furthermore, emitting an error message,
 ## in case of conflicting options
 ##
 ## e.g +witmer -threads [untenable]
@@ -54,7 +54,7 @@ SBCL_BUILD_WITHOUT_OPTIONS+=	sb-xref-for-internals
 PKG_OPTIONS+=thruption
 . endif
 SBCL_BUILD_WITH_OPTIONS+=	sb-wtimer
-.else 
+.else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-wtimer
 .endif
 
@@ -64,7 +64,7 @@ SBCL_BUILD_WITHOUT_OPTIONS+=	sb-wtimer
 PKG_OPTIONS+=safepoint
 . endif
 SBCL_BUILD_WITH_OPTIONS+=	sb-thruption
-.else 
+.else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-thruption
 .endif
 
@@ -74,14 +74,14 @@ SBCL_BUILD_WITHOUT_OPTIONS+=	sb-thruption
 PKG_OPTIONS+=threads
 . endif
 SBCL_BUILD_WITH_OPTIONS+=	sb-safepoint
-.else 
+.else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-safepoint
 .endif
 
 
 .if !empty(PKG_OPTIONS:Mthreads)
 SBCL_BUILD_WITH_OPTIONS+=	sb-thread
-.else 
+.else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-thread
 .endif
 
@@ -90,6 +90,6 @@ SBCL_BUILD_WITHOUT_OPTIONS+=	sb-thread
 ## TBD: May affect PLIST
 SBCL_BUILD_WITH_OPTIONS+=	sb-core-compression
 .include "../../devel/zlib/buildlink3.mk"
-.else 
+.else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-core-compression
 .endif
