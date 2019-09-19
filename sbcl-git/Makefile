@@ -64,7 +64,7 @@ SUBST_VARS.fix-paths=		PREFIX
 ## NB: This patch will probably fail w/ the current SBCL src.
 ##
 ## The newer asdf-module.mk system, now used in sb-prof, may need to be
-## tested for the affected test tgt, on a NetBSD system. Ideally, 
+## tested for the affected test tgt, on a NetBSD system. Ideally,
 ## the asdf-module.mk src may not need a patch for the build
 _PKGSRC_PATCHES+= ${PATCHDIR}/nb-patch-revert-37d3828773e2f847bb1ed7522b0af4fb8e736fc8
 .endif
@@ -93,7 +93,7 @@ pre-build:
 do-build:
 	cd ${WRKSRC} && ${ENV} CC=${CC} ${SH} make.sh --prefix=${PREFIX} --xc-host=${SBCL_BOOT_SYSTEM:Q} ${SBCL_BUILD_OPTIONS}
 post-build:
-	${TEST} -n "${SBCL_BUILD_DOCS}" && ${GMAKE} -C ${WRKSRC}/doc/manual/ info MAKEINFO=${MAKEINFO}	
+	${TEST} -n "${SBCL_BUILD_DOCS}" && ${GMAKE} -C ${WRKSRC}/doc/manual/ info MAKEINFO=${MAKEINFO}
 	cd ${WRKSRC} && ${RM} -f contrib/sb-cover/test-output/*
 
 do-install:
