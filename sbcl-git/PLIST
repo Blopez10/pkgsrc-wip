@@ -5,6 +5,8 @@ lib/sbcl/contrib/sb-aclrepl.asd
 lib/sbcl/contrib/sb-aclrepl.fasl
 lib/sbcl/contrib/sb-bsd-sockets.asd
 lib/sbcl/contrib/sb-bsd-sockets.fasl
+lib/sbcl/contrib/sb-capstone.asd
+lib/sbcl/contrib/sb-capstone.fasl
 lib/sbcl/contrib/sb-cltl2.asd
 lib/sbcl/contrib/sb-cltl2.fasl
 lib/sbcl/contrib/sb-concurrency.asd
@@ -21,6 +23,8 @@ lib/sbcl/contrib/sb-introspect.asd
 lib/sbcl/contrib/sb-introspect.fasl
 lib/sbcl/contrib/sb-md5.asd
 lib/sbcl/contrib/sb-md5.fasl
+lib/sbcl/contrib/sb-mpfr.asd
+lib/sbcl/contrib/sb-mpfr.fasl
 lib/sbcl/contrib/sb-posix.asd
 lib/sbcl/contrib/sb-posix.fasl
 lib/sbcl/contrib/sb-queue.asd
@@ -33,9 +37,15 @@ lib/sbcl/contrib/sb-simple-streams.asd
 lib/sbcl/contrib/sb-simple-streams.fasl
 lib/sbcl/contrib/sb-sprof.asd
 lib/sbcl/contrib/sb-sprof.fasl
+lib/sbcl/contrib/uiop.fasl
 lib/sbcl/sbcl.core
+lib/sbcl/sbcl.mk
 man/man1/sbcl.1
 share/doc/sbcl/BUGS
 share/doc/sbcl/COPYING
 share/doc/sbcl/CREDITS
 share/doc/sbcl/NEWS
+${PLIST.doc}share/info/asdf.info
+${PLIST.doc}share/info/sbcl.info
+${PLIST.doc}share/info/sbcl.info-1
+${PLIST.doc}share/info/sbcl.info-2
