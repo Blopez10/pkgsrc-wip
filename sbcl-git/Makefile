@@ -10,7 +10,9 @@ COMMENT=		SBCL, a Common Lisp implementation
 
 GIT_REPOSITORIES=	sbcl
 GIT_REPO.sbcl=		git://git.code.sf.net/p/sbcl/sbcl
-#GIT_REVISION.sbcl=	# Unset
+
+## NB: Some of the annotations in this source file may be moved to the
+## file files/README.pkg.md
 
 ## SBCL_PATCHVERSION
 ##
@@ -264,7 +266,8 @@ post-build: do-docs-build
 do-install:
 	cd ${WRKSRC} && BUILD_ROOT=${DESTDIR} INSTALL_ROOT=${PREFIX} MAN_DIR=${PREFIX}/${PKGMANDIR} ${SH} install.sh
 	${TEST} -f ${WRKSRC}/doc/internals/sbcl-internals.info && \
-		${CP} ${WRKSRC}/doc/internals/sbcl-internals.info ${DESTDIR}${PREFIX}/share/info/
+		${INSTALL} ${COPY} -o ${DOCOWN} -g ${DOCGRP} -m ${DOCMODE} \
+		${WRKSRC}/doc/internals/sbcl-internals.info ${DESTDIR}${PREFIX}/share/info/
 	rm -f ${DESTDIR}${PREFIX}/lib/sbcl/asdf-install/installer.lisp.orig
 	rm -f ${DESTDIR}${PREFIX}/lib/sbcl/sb-posix/posix-tests.lisp.orig
 	rm -f ${DESTDIR}${PREFIX}/lib/sbcl/sb-posix/test-output/write-test.txt
