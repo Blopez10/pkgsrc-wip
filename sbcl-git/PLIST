@@ -49,3 +49,4 @@ ${PLIST.doc}share/info/asdf.info
 ${PLIST.doc}share/info/sbcl.info
 ${PLIST.doc}share/info/sbcl.info-1
 ${PLIST.doc}share/info/sbcl.info-2
+${PLIST.doc}share/info/sbcl-internals.info
