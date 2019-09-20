@@ -48,7 +48,7 @@ GIT_REPO.sbcl=		git://git.code.sf.net/p/sbcl/sbcl
 SBCL_PATCHVERSION=	1.5.6
 
 .include "../../mk/bsd.prefs.mk"
-.include "../../mk/git-package.mk"
+.include "../../wip/mk/git-package.mk"
 
 USE_TOOLS+=		gmake gtar:run patch
 
