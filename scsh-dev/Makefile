@@ -1,7 +1,7 @@
 # $Thinkum$
 
-DISTNAME=		scsh-dev-${SCSH_VERSION}.${GIT_REVISION.scsh}
-PKGREVISION=		1
+DISTNAME=		scsh-dev-${SCSH_VERSION}
+PKGREVISION=		1.${GIT_REVISION.scsh}.1
 CATEGORIES=		shells lang
 
 ## NB: Reusing the present VERSION value from WRKSRC/Makefile.in
