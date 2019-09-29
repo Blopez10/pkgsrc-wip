@@ -4,6 +4,11 @@ PKG_OPTIONS_VAR=	PKG_OPTIONS.sbcl
 PKG_SUPPORTED_OPTIONS=	doc xref wtimer thruption safepoint threads zcore
 PKG_SUGGESTED_OPTIONS=	doc threads
 
+## TBD: 'source' option, to install the Lisp source code under
+## share/sbcl/ or somesuch - thus allowing for it to be accessed for
+## source review, independent of /usr/pkgsrc
+## + update "SYS" paths in site-lisp
+
 ## TBD: options help for these esoteric build-option symbols
 
 .include "../../mk/bsd.options.mk"

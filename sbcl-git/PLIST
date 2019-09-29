@@ -45,8 +45,8 @@ share/doc/sbcl/BUGS
 share/doc/sbcl/COPYING
 share/doc/sbcl/CREDITS
 share/doc/sbcl/NEWS
-${PLIST.doc}share/info/asdf.info
-${PLIST.doc}share/info/sbcl.info
-${PLIST.doc}share/info/sbcl.info-1
-${PLIST.doc}share/info/sbcl.info-2
-${PLIST.doc}share/info/sbcl-internals.info
+${PLIST.doc}${INFODIR}/asdf.info
+${PLIST.doc}${INFODIR}/sbcl.info
+${PLIST.doc}${INFODIR}/sbcl.info-1
+${PLIST.doc}${INFODIR}/sbcl.info-2
+${PLIST.doc}${INFODIR}/sbcl-internals.info
