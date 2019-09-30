@@ -2223,6 +2223,8 @@ share/emacs/${PKGVERSION}/lisp/image/exif.el.gz
 share/emacs/${PKGVERSION}/lisp/image/exif.elc
 share/emacs/${PKGVERSION}/lisp/image/gravatar.el.gz
 share/emacs/${PKGVERSION}/lisp/image/gravatar.elc
+share/emacs/${PKGVERSION}/lisp/image/image-converter.el.gz
+share/emacs/${PKGVERSION}/lisp/image/image-converter.elc
 share/emacs/${PKGVERSION}/lisp/imenu.el.gz
 share/emacs/${PKGVERSION}/lisp/imenu.elc
 share/emacs/${PKGVERSION}/lisp/indent.el.gz

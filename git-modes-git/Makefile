@@ -18,6 +18,6 @@ do-install:
 	cd ${WRKSRC} && ${INSTALL_DATA} *.el *.elc \
 		${DESTDIR}${PREFIX}/share/emacs/site-lisp/git-modes
 
-.include "../../wip/emacs-git/modules.mk"
+.include "../../${EMACS_BASE:Uwip/emacs-git}/modules.mk"
 .include "../../wip/mk/git-package.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -2,8 +2,10 @@
 
 ### Set options
 PKG_OPTIONS_VAR=			PKG_OPTIONS.emacs
-PKG_SUPPORTED_OPTIONS=			dbus gconf gnutls imagemagick jansson svg xaw3d xft2 xml debug
-PKG_SUGGESTED_OPTIONS=			jansson debug
+PKG_SUPPORTED_OPTIONS=			dbus gconf gnutls imagemagick
+PKG_SUPPORTED_OPTIONS+= 		jansson svg xaw3d xft2 xml debug
+PKG_SUPPORTED_OPTIONS+= 		modules
+PKG_SUGGESTED_OPTIONS=			jansson modules
 # xaw3d is only valid with tookit = xaw
 
 PKG_OPTIONS_OPTIONAL_GROUPS+=		window-system
@@ -21,7 +23,7 @@ PKG_OPTIONS_GROUP.toolkit=		gtk gtk2 gtk3 motif xaw lucid
 # gtk3 is default in the logic below (even not included in SUGGESTED_=
 # gconf, gtk* and xft2 will be ignored for nextstep even shown as selected.
 
-PKG_SUGGESTED_OPTIONS=	dbus gconf gnutls gtk3 xaw3d xft2 xml x11
+PKG_SUGGESTED_OPTIONS+=			dbus gconf gnutls gtk3 xaw3d xft2 xml x11
 
 .include "../../mk/bsd.options.mk"
 
@@ -60,6 +62,17 @@ CONFIGURE_ARGS+=	--without-xml2
 .else
 CONFIGURE_ARGS+=	--without-gnutls
 .endif
+
+###
+### Support Emacs dynamic modules
+###
+.if !empty(PKG_OPTIONS:Mmodules)
+PLIST.modules=		yes
+CONFIGURE_ARGS+=	--with-modules
+.else
+CONFIGURE_ARGS+=	--without-modules
+.endif
+
 
 ###
 ### Check non nextstep (implies x11) options  ---------------------
