@@ -57,14 +57,19 @@ DEPENDS+=		scheme48>=1.9.2:../../lang/scheme48/
 .include "../../lang/scheme48/buildlink3.mk"
 .else
 ## \ TBD: Add a buildlink3.mk for lang/scheme48:scheme48
-BUILDLINK_TREE+=		scheme48
+
+BUILDLINK_TREE+=        scheme48
 
 .if !defined(SCHEME48_BUILDLINK3_MK)
-SCHEME48_BUILDLINK3_MK= 	# Defined
-BUILDLINK_API_DEPENDS.scheme48?=scheme48>=1.9.2
-BUILDLINK_PKGSRCDIR_scheme48?=	../../lang/scheme48
-.endif
-BUILDLINK_TREE+=		 -scheme48
+SCHEME48_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.scheme48+=    scheme48>=1.9.2
+BUILDLINK_ABI_DEPENDS.scheme48+=    scheme48>=1.9.2
+BUILDLINK_PKGSRCDIR.scheme48?=      ../../lang/scheme48
+
+.endif # SCHEME48_BUILDLINK3_MK
+
+BUILDLINK_TREE+=        -scheme48
 ## /
 .endif ## exists lang/scheme48 buildink3.mk
 
