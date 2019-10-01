@@ -109,8 +109,8 @@ SBCL_BUILD_WITHOUT_OPTIONS+=	restore-fs-segment-register-from-tls
 
 
 .if !empty(PKG_OPTIONS:Mzcore)
-## TBD: LIKERFLAGS (??) for -lz (FreeBSD/Other)
-## TBD: May not be supported on *BSD (??)
+## TBD: LINKERFLAGS for -lz (FreeBSD/Other)
+## TBD: Support/Testing for sb-core-compression on *BSD
 SBCL_BUILD_WITH_OPTIONS+=	sb-core-compression
 .include "../../devel/zlib/buildlink3.mk"
 .else
