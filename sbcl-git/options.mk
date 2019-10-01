@@ -2,12 +2,17 @@
 PKG_OPTIONS_VAR=	PKG_OPTIONS.sbcl
 
 PKG_SUPPORTED_OPTIONS=	doc xref wtimer thruption safepoint threads zcore
-PKG_SUGGESTED_OPTIONS=	doc threads
+PKG_SUGGESTED_OPTIONS=	doc
 
-## TBD: 'source' option, to install the Lisp source code under
-## share/sbcl/ or somesuch - thus allowing for it to be accessed for
-## source review, independent of /usr/pkgsrc
-## + update "SYS" paths in site-lisp
+## TBD: Platforms for which sb-thread would be definitively unsupported
+## - ARM
+## - Other ?
+
+## TBD: 'source' option, to install the Lisp source code under a PREFIX
+## directory e.g share/sbcl/sys - thus allowing for the source code to
+## be accessed for source review, independent of /usr/pkgsrc
+##
+## + update "SYS" paths in site-lisp / install an example to this effect
 
 ## TBD: options help for these esoteric build-option symbols
 
@@ -23,7 +28,7 @@ PLIST_VARS+=		doc
 ##
 USE_TOOLS+=	makeinfo
 PLIST.doc=	yes
-.endif
+.endif ## doc
 
 
 ## Advanced port build options for SBCL
@@ -31,13 +36,13 @@ PLIST.doc=	yes
 ## The following variables will affect SBCL_BUILD_OPTIONS:
 ##   SBCL_BUILD_WITH_OPTIONS
 ##   SBCL_BUILD_WITHOUT_OPTIONS
-
+##
 
 .if !empty(PKG_OPTIONS:Mxref)
 SBCL_BUILD_WITH_OPTIONS+=	sb-xref-for-internals
 .else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-xref-for-internals
-.endif
+.endif ## xref
 
 ## NB: Each of the following entails a dependency on the subsequent,
 ## when enabled in the build.
@@ -61,7 +66,7 @@ PKG_OPTIONS+=thruption
 SBCL_BUILD_WITH_OPTIONS+=	sb-wtimer
 .else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-wtimer
-.endif
+.endif ## wtimer
 
 
 .if !empty(PKG_OPTIONS:Mthruption)
@@ -71,7 +76,7 @@ PKG_OPTIONS+=safepoint
 SBCL_BUILD_WITH_OPTIONS+=	sb-thruption
 .else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-thruption
-.endif
+.endif ## thruption
 
 
 .if !empty(PKG_OPTIONS:Msafepoint)
@@ -81,20 +86,33 @@ PKG_OPTIONS+=threads
 SBCL_BUILD_WITH_OPTIONS+=	sb-safepoint
 .else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-safepoint
-.endif
+.endif ## safepoint
 
 
 .if !empty(PKG_OPTIONS:Mthreads)
 SBCL_BUILD_WITH_OPTIONS+=	sb-thread
+
+. if ( "${OPSYS}" == "FreeBSD" )
+## NB: Referencing FreeBSD ports, on this with-feature
+SBCL_BUILD_WITH_OPTIONS+=	restore-fs-segment-register-from-tls
+. endif
+
 .else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-thread
-.endif
+
+. if ( "${OPSYS}" == "FreeBSD" )
+## NB: Referencing FreeBSD ports, on this without-feature
+SBCL_BUILD_WITHOUT_OPTIONS+=	restore-fs-segment-register-from-tls
+. endif
+
+.endif ## threads
 
 
 .if !empty(PKG_OPTIONS:Mzcore)
-## TBD: May affect PLIST
+## TBD: LIKERFLAGS (??) for -lz (FreeBSD/Other)
+## TBD: May not be supported on *BSD (??)
 SBCL_BUILD_WITH_OPTIONS+=	sb-core-compression
 .include "../../devel/zlib/buildlink3.mk"
 .else
 SBCL_BUILD_WITHOUT_OPTIONS+=	sb-core-compression
-.endif
+.endif ## zcore

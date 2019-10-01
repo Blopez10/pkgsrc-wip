@@ -1,6 +1,6 @@
 # $NetBSD: Makefile,v 1.43 2014/10/09 14:06:30 thomasklausner Exp $
 
-DISTNAME=		sbcl-source-${_GIT_PKGVERSION:S/.//g}
+DISTNAME=		sbcl-source-${GIT_TAG.sbcl:S/^sbcl-//:U${_GIT_PKGVERSION:S/.//g}}
 PKGNAME=		${DISTNAME:S/-source//}
 PKGREVISION=		1
 CATEGORIES=		lang
@@ -18,6 +18,49 @@ GIT_REPO.sbcl=		git://git.code.sf.net/p/sbcl/sbcl
 USE_TOOLS+=		gmake gtar:run patch
 
 WRKSRC=			${WRKDIR}/${GIT_EXTRACTDIR.sbcl}
+
+BUILD_DEFS+=		SBCL_BOOT_SYSTEM
+
+MAKE_ENV+=		CCACHE_DISABLE=Defined
+
+## FIXME:
+## 1) make a port wip/sbcl-bin
+## 2) use wip/sbcl-bin (no threads) to bootstrap wip/sbcl-git
+##
+## NB: Do similar, with CCL.
+##
+## NB: This may, in effect, emulate some of the support provided in the
+## FreeBSD lang/sbcl port.
+
+
+## Remarks about OPSYS support
+##
+## SBCL 1.2.7 is the last release denoted as supported for *BSD, at the
+## SBCL web site.
+##
+## Overall, threaded builds may not be recommended for this pkg, on any BSD
+##
+## Threaded builds may be possible on some BSD, under such as
+## GIT_TAG.sbcl=sbcl-1.5.6 - seen up to SBCL 1.5.6 with external builds
+## under FreeBSD 11.2, bootstrapping with SBCL 1.5.5 or 1.5.6, clang 8
+## as CC, LLVM LLD 8 as LD
+##
+## SBCL 1.5.7 may not build under most configurations, on some BSD.
+##
+## All of this should be fairly well supported in Linux environments,
+## for any SBCL version and any toolchain configuration.
+##
+## TBD: Build testing under Linux ABI interoperability, on any non-Linux
+## OPSYS
+##
+## How to ensure that this port uses SBCL 1.5.6 for any BSD
+## - a mk.conf snippet
+##
+#  .if !empty(OPSYS:M*BSD)
+#  GIT_TAG.sbcl		=sbcl-1.5.6
+#  .endif
+#
+
 
 #
 # Bootstrap section.
@@ -115,7 +158,7 @@ do-docs-build:
 ##
 
 do-configure:
-	cd ${WRKSRC} && ${PKGSRC_SETENV} CC=${CC} GNUMAKE=${GMAKE} ${SH} \
+	cd ${WRKSRC} && ${PKGSRC_SETENV} ${CONFIGURE_ENV} GNUMAKE=${GMAKE} ${SH} \
 	  make-config.sh --prefix=${PREFIX} --xc-host=${SBCL_BOOT_SYSTEM:Q} ${SBCL_BUILD_OPTIONS}
 
 post-configure:
@@ -126,12 +169,12 @@ post-configure:
 ## Primary Build, Install, Test
 
 do-build:
-	cd ${WRKSRC} && ${PKGSRC_SETENV} CC=${CC} GNUMAKE=${GMAKE} ${SH} make.sh
+	cd ${WRKSRC} && ${PKGSRC_SETENV} CC=${CC} GNUMAKE=${GMAKE} ${MAKE_ENV} ${SH} make.sh
 post-build: do-docs-build
 	cd ${WRKSRC} && ${RM} -f contrib/sb-cover/test-output/*
 
 do-install:
-	cd ${WRKSRC} && ${SETENV} BUILD_ROOT=${DESTDIR} INSTALL_ROOT=${PREFIX} \
+	cd ${WRKSRC} && ${SETENV} ${INSTALL_ENV} BUILD_ROOT=${DESTDIR} INSTALL_ROOT=${PREFIX} \
 		MAN_DIR=${PREFIX}/${PKGMANDIR} INFO_DIR=${PREFIX}/${PKGINFODIR} \
 		${SH} install.sh
 .if !empty(PKG_OPTIONS:Mdoc)
