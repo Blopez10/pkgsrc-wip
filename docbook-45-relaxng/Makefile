@@ -2,13 +2,15 @@
 
 DISTNAME=	docbook-45-relaxng
 PKGNAME=	${DISTNAME}-4.5
-MASTER_SITES+=	https://docbook.org/rng/4.5/
 PKGREVISION=	1
-
-COMMENT=	Docbook 4.5 grammar in RELAX NG XML and Compact notations
-HOMEPAGE=	https://docbook.org/
 CATEGORIES=	textproc
 
+MAINTAINER=	qa@thinkum.space
+HOMEPAGE=	https://www.docbook.org/
+COMMENT=	Docbook 4.5 grammar in RELAX NG XML and Compact notations
+LICENSE=	# TBD
+
+MASTER_SITES+=	https://docbook.org/rng/4.5/
 DIST_SUBDIR=	${DISTNAME}
 .for MOD in calstblx dbhierx dbnotnx dbpoolx docbook htmltblx
 .  for TYP in rnc rng

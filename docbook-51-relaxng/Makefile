@@ -4,10 +4,14 @@ DISTNAME=	docbook-51-relaxng
 PKGNAME=	${DISTNAME}-5.1.os
 PKGREVISION=	1
 CATEGORIES=	textproc
-COMMENT=	DocBook 5.1 grammar in RELAX NG XML and Compact notations
 
-DISTFILES=	docbook-v5.1-os.zip
+MAINTAINER=	qa@thinkum.space
+HOMEPAGE=	https://www.docbook.org/
+COMMENT=	DocBook 5.1 grammar in RELAX NG XML and Compact notations
+LICENSE=	# TBD
+
 MASTER_SITES=	https://docbook.org/xml/5.1/
+DISTFILES=	docbook-v5.1-os.zip
 
 EXTRACT_DIR=	${WRKDIR}/${PKGNAME_NOREV}
 
