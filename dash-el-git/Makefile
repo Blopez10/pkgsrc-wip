@@ -3,6 +3,10 @@
 DISTNAME=	dash-el-${_GIT_PKGVERSION:S/.//g}
 PKGREVISION=	1
 CATEGORIES=	devel
+
+MAINTAINER=	qa@thinkum.space
+HOMEPAGE=	https://github.com/magnars/dash.el
+COMMENT=	Functional operations on sets and sequences
 LICENSE=	gnu-gpl-v3
 
 DASH_EL_BASE= 	${PKGBASE:S/-el$//}

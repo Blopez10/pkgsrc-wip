@@ -3,6 +3,10 @@
 DISTNAME=	libegit2-${_GIT_PKGVERSION:S/.//g}
 PKGREVISION=	1
 CATEGORIES=	devel
+
+MAINTAINER=	qa@thinkum.space
+HOMEPAGE=	https://github.com/magit/libegit2
+COMMENT=	Emacs bindings for libgit2
 LICENSE=	gnu-gpl-v2
 
 CONFLICTS+=	libgit2-[0-9]*
