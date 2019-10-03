@@ -1,4 +1,5 @@
 @comment $Thinkum$
+share/doc/docbook-45-relaxng/COPYING
 share/xml/docbook/4.5/calstblx.rnc
 share/xml/docbook/4.5/calstblx.rng
 share/xml/docbook/4.5/dbhierx.rnc

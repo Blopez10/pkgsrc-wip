@@ -8,7 +8,15 @@ CATEGORIES=	textproc
 MAINTAINER=	qa@thinkum.space
 HOMEPAGE=	https://www.docbook.org/
 COMMENT=	DocBook 5.1 grammar in RELAX NG XML and Compact notations
-LICENSE=	# TBD
+LICENSE=	docbook-5.1
+
+## FIXME files/COPYING or a subset of text from the 5.1-os OASIS
+## standard for DocBook 5.1 should be included in pkgsrc/licenses
+## subsequent of any adoption of this pkg in pkgsrc main, as e.g
+## /usr/pkgsrc/licenses/docbook-5.1
+##
+## In effect, the file file/COPYING may serve as providing an interim,
+## pkg-visible representation of the licensing terms for this software.
 
 MASTER_SITES=	https://docbook.org/xml/5.1/
 DISTFILES=	docbook-v5.1-os.zip
@@ -46,6 +54,7 @@ do-install:
 	${INSTALL} -d -o ${DOCOWN} -g ${DOCGRP} -m ${PKGDIRMODE} ${DESTDIR}${DB5_DOC_PREFIX}
 	cd ${EXTRACT_DIR} && ${INSTALL} ${COPY} -o ${DOCOWN} -g ${DOCGRP} -m ${DOCMODE} \
 		${DB5_DOC_SRC} ${DESTDIR}${DB5_DOC_PREFIX}
+	${INSTALL_DATA} files/COPYING ${DESTDIR}${DB5_DOC_PREFIX}
 
 .include "../../textproc/xmlcatmgr/catalogs.mk"
 .include "../../mk/bsd.pkg.mk"
