@@ -165,13 +165,16 @@ _GIT_CLONE_FLAGS.${repo}+=	--recurse-submodules=no
 _GIT_SUBMODULES.${repo}+=	${GIT_SUBMODULES.${repo}}
 
 # For revision checkout we need deep copy
-.  if !defined(GIT_REVISION.${repo}) && !empty(GIT_DEEP_CLONE.${repo}:M[yY][eE][sS])
+#
+# TBD: git-clone(1) should be able to clone w/ depth 1 from any single
+#      changeset identifier, whether or not the upstream HEAD revision
+.  if empty(GIT_DEEP_CLONE.${repo}:M[yY][eE][sS])
 _GIT_FETCH_FLAGS.${repo}+=	--depth 1
 _GIT_CLONE_FLAGS.${repo}+=	--depth 1
 .  endif
 
 # The cached archive
-_GIT_DISTFILE.${repo}=	${PKGBASE}-${repo}-gitarchive.tar.gz
+_GIT_DISTFILE.${repo}?=	${PKGBASE}-${repo}-gitarchive.tar.gz
 
 # Define the shell variables used by the following commands
 _GIT_CMD.vars.${repo}= \
